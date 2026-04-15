@@ -1,0 +1,3 @@
+[submodule "libs/OpenGUI"]
+	path = libs/OpenGUI
+	url = https://github.com/mmdproduction/OpenGUI.git
