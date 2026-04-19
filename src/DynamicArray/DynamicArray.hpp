@@ -1,5 +1,5 @@
 #pragma once
-#include<execution>
+#include<exception>
 
 template<typename T>
 class DynamicArray{
@@ -19,17 +19,14 @@ class DynamicArray{
 
     void set(size_t index, T value);
 
-    T& get(size_t index);
-    const T& get(size_t index) const;
-    T& operator[](size_t index);
-    const T& operator[](size_t index) const;
-
+    T get(size_t index);
+    T operator[](size_t index);
     size_t getSize() const;
     
     void resize(size_t newSize);
 
 
-}
+};
 
 #include"DynamicArray.tpp"
 

@@ -1,4 +1,5 @@
 #pragma once
+#include<exception>
 
 template<typename T>
 class LinkedList{
@@ -32,8 +33,10 @@ class LinkedList{
     void append(T item);
     void prepend(T item);
 
-    void inserAt(T item, int index);
+    void insertAt(T item, int index);
 
-}
+    LinkedList<T>* concat(LinkedList<T>& list);
+
+};
 
 #include"LinkedList.tpp"

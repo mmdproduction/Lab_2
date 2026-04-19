@@ -1,3 +1,5 @@
+
+
 template<typename T>
 DynamicArray<T>::DynamicArray() : data(nullptr), size(0) {}
 
@@ -49,20 +51,38 @@ T& DynamicArray<T>::get(size_t index) {
     return data[index];
 }
 
+
+
 template<typename T>
-const T& DynamicArray<T>::get(size_t index) const {
-    if (index >= size) {
-        throw std::out_of_range("Index out of range");
+T DynamicArray<T>::operator[](size_t index){
+    return data[index];
+}
+
+
+
+template<typename T>
+size_t DynamicArray<T>::getSize() const{
+    return size;
+}
+
+template<typename T>
+void DynamicArray<T>::resize(size_t newSize){
+    if(newSize == size){
+        return;
     }
-    return data[index];
-}
+    T* newData = new T[newSize];
+    if(newSize > size){
+        for(size_t i = 0; i < size; ++i){
+            newData[i] = data[i];
+        }
+    }
+    else{
+        for(size_t i = 0; i < newSize; ++i){
+            newData[i] = data[i];
+        }
+    }
 
-template<typename T>
-T& DynamicArray<T>::operator[](size_t index){
-    return data[index];
-}
-
-template<typename T>
-const T& DynamicArray<T>::operator[](size_t index) const {
-    return data[index];
+    T* delData = data;
+    data = newData;
+    delete[] delData;
 }
