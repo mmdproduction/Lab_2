@@ -1,0 +1,123 @@
+template<typename T>
+LinkedList<T>::LinkedList(): size(0), head(nullptr), tail(nullptr){}
+
+template<typename T>
+LinkedList<T>::LinkedList(T* item, int count): size(count){
+    for(size_t i = 0; i < count; ++i){
+        append(item[i]);
+    }
+}
+
+template<typename T>
+LinkedList<T>::LinkedList(const LinkedList<T>& list): size(0), head(nullptr){
+    size = list.size;
+    current = list.head;
+
+    while(current != nullptr){
+        append(current->data);
+        current = current->next;
+    }
+} 
+
+template<typename T>
+T LinkedList<T>::getFirst(){
+    if(size == 0){
+        throw std::runtime_error("Index out of range");
+    }
+    return head->data;
+}
+
+template<typename T>
+T LinkedList<T>::getLast(){
+    if(size == 0){
+        throw std::runtime_error("Index out of range");
+    }
+    return tail->data;
+}
+
+template<typename T>
+T LinkedList<T>::get(int index){
+    if(index < 0 || index >= size){
+        throw std::runtime_error("Index out of range");
+    }
+    Node* tmp = head;
+    for(size_t i = 0; i < index; ++i){
+        tmp = tmp->next;
+    }
+    return tmp->data;
+}
+
+template<typename T>
+LinkedList<T> LinkedList<T>::getSubList(int startIndex, int endIndex){
+    if((startIndex < 0 || startIndex >= size) && (endIndex < 0 || endIndex >= size)){
+        throw std::runtime_error("Index out of range");
+    }
+    Node* tmp = head;
+    for(size_t i = 0; i < startIndex; ++i){
+        tpm = tpm->next;
+    }
+    LinkedList<T> subList;
+    for(size_t i = startIndex; i < endIndex; ++i){
+        subList.append(tpm->data);
+        tpm = tpm->next;
+    }
+    return subList;
+}
+
+template<typename T>
+size_t LinkedList<T>::getLength(){
+    return size;
+}
+
+template<typename T>
+void LinkedList<T>::append(T item){
+    Node* node = new Node(item);
+    if(head = nullptr){
+        head = node;
+        tail = head;
+    }
+    else{
+        tail->next = node;
+        tail = tail->next;
+    }
+
+    size++;
+}
+
+template<typename T>
+void LinkedList<T>::prepend(T item){
+    Node* node = new Node(item);
+    if(head = nullptr){
+        head = node;
+        tail = head;
+    }
+    else{
+        node->next = head;
+        head = node;
+    }
+    size++;
+}
+
+template<typename T>
+void LinkedList<T>::insetAt(T item, int index){
+    if(index < 0 || index > size){
+        throw std::runtime_error("Index out of range");
+    }
+    if(index == 0){
+        prepend(item);
+        return;
+    }
+    if(index == size){
+        append(item);
+        return;
+    }
+    Node* node = new Node(item);
+    Node* tpm = head;
+    for(size_t i = 0; i < index - 1; ++i){
+        tpm = tpm->next;
+    }
+    node->next = tpm->next;
+    tpm->next = node;
+
+    size++;
+}
