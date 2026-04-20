@@ -137,3 +137,12 @@ LinkedList<T>* LinkedList<T>::concat(LinkedList<T>& list){
     }
     return concatList;
 }
+
+template<typename T>
+T LinkedList<T>::operator[](int index){
+    Node* tmp = head;
+    for(size_t i = 0; i < index; ++i){
+        tmp = tmp->next;
+    }
+    return tmp->data;
+}

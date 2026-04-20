@@ -25,6 +25,7 @@ class LinkedList{
     T getFirst();
     T getLast();
     T get(int index);
+    T operator[](int index);
 
     LinkedList<T>* getSubList(int startIndex, int endIndex);
 

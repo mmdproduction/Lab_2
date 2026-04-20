@@ -81,7 +81,7 @@ void DynamicArray<T>::resize(size_t newSize){
             newData[i] = data[i];
         }
     }
-
+    size = newSize;
     T* delData = data;
     data = newData;
     delete[] delData;
