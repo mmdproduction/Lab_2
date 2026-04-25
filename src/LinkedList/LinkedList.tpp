@@ -9,15 +9,24 @@ LinkedList<T>::LinkedList(T* item, int count): size(count){
 }
 
 template<typename T>
-LinkedList<T>::LinkedList(const LinkedList<T>& list): size(0), head(nullptr){
-    size = list.size;
-    current = list.head;
+LinkedList<T>::LinkedList(const LinkedList<T>& list): size(0), head(nullptr), tail(nullptr){
+    auto current = list.head;
 
     while(current != nullptr){
         append(current->data);
         current = current->next;
     }
 } 
+
+template<typename T>
+LinkedList<T>::~LinkedList() {
+    Node* current = head;
+    while(current != nullptr) {
+        Node* next = current->next;
+        delete current;
+        current = next;
+    }
+}
 
 template<typename T>
 T LinkedList<T>::getFirst(){
@@ -52,7 +61,7 @@ LinkedList<T>* LinkedList<T>::getSubList(int startIndex, int endIndex){
     if((startIndex < 0 || startIndex >= size) && (endIndex < 0 || endIndex >= size)){
         throw std::runtime_error("Index out of range");
     }
-    Node* tmp = head;
+    Node* tpm = head;
     for(size_t i = 0; i < startIndex; ++i){
         tpm = tpm->next;
     }
@@ -72,13 +81,13 @@ size_t LinkedList<T>::getLength(){
 template<typename T>
 void LinkedList<T>::append(T item){
     Node* node = new Node(item);
-    if(head = nullptr){
+    if(head == nullptr){
         head = node;
         tail = head;
     }
     else{
         tail->next = node;
-        tail = tail->next;
+        tail = node;
     }
 
     size++;

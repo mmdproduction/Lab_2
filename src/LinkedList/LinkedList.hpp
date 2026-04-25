@@ -1,5 +1,6 @@
 #pragma once
-#include<exception>
+#include<stdexcept>
+#include<iostream>
 
 template<typename T>
 class LinkedList{
@@ -21,6 +22,7 @@ class LinkedList{
     LinkedList();
     LinkedList(T* items, int count);
     LinkedList(const LinkedList<T>& list);
+    ~LinkedList();
 
     T getFirst();
     T getLast();

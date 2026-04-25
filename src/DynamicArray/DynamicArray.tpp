@@ -44,7 +44,7 @@ void DynamicArray<T>::set(size_t index, T value){
 }
 
 template<typename T>
-T& DynamicArray<T>::get(size_t index) {
+T DynamicArray<T>::get(size_t index) {
     if (index >= size) {
         throw std::out_of_range("Index out of range");
     }

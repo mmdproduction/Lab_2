@@ -4,5 +4,35 @@ set(CMAKE_CXX_STANDARD 20)
 
 
 set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/)
+set(HEADER_FILES
+    src/DynamicArray/DynamicArray.hpp
+    src/Exception/Exception.hpp
+    src/IEnumerator/IEnumerator.hpp
+    src/IEnumerator/Iterator.hpp
+    src/LinkedList/LinkedList.hpp
+    src/Sequence/Sequence.hpp
+    src/Sequence/BitSequence.hpp
+)
 
-target_link_directories(Lab_2 Public ${SRC})
+set(TEMPLATE_FILES
+    src/DynamicArray/DynamicArray.tpp
+    src/IEnumerator/IEnumerator.tpp
+    src/IEnumerator/Iterator.tpp
+    src/LinkedList/LinkedList.tpp
+    src/Sequence/Sequence.tpp
+)
+
+set(SOURCE_FILES
+    src/Sequence/BitSequence.cpp
+)
+
+add_library(${PROJECT_NAME} STATIC
+    ${SOURCE_FILES}
+    ${HEADER_FILES}
+    ${TEMPLATE_FILES}
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${SRC})
+add_executable(main_test ${SRC}/main.cpp)
+
+target_link_libraries(main_test PRIVATE ${PROJECT_NAME})

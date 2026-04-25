@@ -9,8 +9,12 @@ class Iterator{
 
     public:
     Iterator(IEnumerator<T>* enumPtr, bool end = false);
-    T& operator*() const;
-    EnumeratorIterator& operator++();
-    bool operator!=(const EnumeratorIterator& other) const;
+    T operator*() const;
+    Iterator<T>& operator++();
+    bool operator!=(const Iterator& other) const;
+
+    static Iterator<T> endIterator() {
+    return Iterator<T>(nullptr, true);
+    }
 };
 #include"Iterator.tpp"

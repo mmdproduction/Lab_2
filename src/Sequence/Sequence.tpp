@@ -1,9 +1,9 @@
 
 template<typename T>
-SequenceList<T>::SequenceList() : list(new LinkedList<T>()) {}
+ListSequence<T>::ListSequence() : list(new LinkedList<T>()) {}
 
 template<typename T>
-SequenceList<T>::SequenceList(T* item, int count) {
+ListSequence<T>::ListSequence(T* item, int count) {
     list = new LinkedList<T>();
     for (int i = 0; i < count; ++i) {
         list->append(item[i]);
@@ -11,58 +11,58 @@ SequenceList<T>::SequenceList(T* item, int count) {
 }
 
 template <typename T>
-T SequenceList<T>::getFirst(){
+T ListSequence<T>::getFirst() const{
     return list->getFirst();
 }
 
 template <typename T>
-T SequenceList<T>::getLast(){
+T ListSequence<T>::getLast() const{
     return list->getLast();
 }
 
 template <typename T>
-T SequenceList<T>::get(size_t index){
+T ListSequence<T>::get(size_t index) const{
     return list->get(index);
 }
 
 template <typename T>
-size_t SequenceList<T>::getSize(){
+size_t ListSequence<T>::getLength() const{
     return list->getLength();
 }
 
 template <typename T>
-void SequenceList<T>::append(T value){
+void ListSequence<T>::append(T value){
     list->append(value);
 }
 
 template <typename T>
-void SequenceList<T>::prepend(T value){
+void ListSequence<T>::prepend(T value){
     list->prepend(value);
 }
 
 template<typename T>
-SequenceList<T>* SequenceList<T>::getSubsequence(int startIndex, int endIndex){
+ListSequence<T>* ListSequence<T>::getSubsequence(int startIndex, int endIndex){
     if (startIndex < 0 || endIndex >= list->getLength() || startIndex > endIndex) {
         throw std::out_of_range("Invalid subsequence range");
     }
-    SequenceList<T> result;
+    ListSequence<T>* result = new ListSequence<T>();
     for (int i = startIndex; i <= endIndex; ++i) {
-        result.append(list->get(i));
+        result->append(list->get(i));
     }
     return result;
 }
 
 template<typename T>
-Sequence<T>* SequenceList<T>::concat(Sequence<T>& other) {
+Sequence<T>* ListSequence<T>::concat(Sequence<T>& other) {
 
-    SequenceList<T>* result = new SequenceList<T>();
+    ListSequence<T>* result = new ListSequence<T>();
 
-    size_t currentSize = list->GetSize();
+    size_t currentSize = list->getLength();
     for (size_t i = 0; i < currentSize; ++i) {
-        result->append(list->Get(i));
+        result->append(list->get(i));
     }
 
-    size_t otherSize = other.getSize();
+    size_t otherSize = other.getLength();
     for (size_t i = 0; i < otherSize; ++i) {
         result->append(other.get(i));
     }
@@ -72,10 +72,10 @@ Sequence<T>* SequenceList<T>::concat(Sequence<T>& other) {
 
 
 template<typename T>
-SequenceArray<T>::SequenceArray() : array(new DynamicArray<T>()), capacity(0), size(0) {}
+ArraySequence<T>::ArraySequence() : array(new DynamicArray<T>()), capacity(0), size(0) {}
 
 template<typename T>
-SequenceArray<T>::SequenceArray(T* item, int count) : capacity(count), size(count) {
+ArraySequence<T>::ArraySequence(T* item, int count) : capacity(count), size(count) {
     array = new DynamicArray<T>(count);
     for (int i = 0; i < count; ++i) {
         array->set(i ,item[i]);
@@ -83,44 +83,44 @@ SequenceArray<T>::SequenceArray(T* item, int count) : capacity(count), size(coun
 }
 
 template<typename T>
-SequenceArray<T>::SequenceArray(const SequenceArray<T>& other) {
+ArraySequence<T>::ArraySequence(const ArraySequence<T>& other) {
     array = new DynamicArray<T>(other.array);
     capacity = other.capacity;
     size = other.size;
 }
 
 template <typename T>
-T SequenceArray<T>::getFirst(){
+T ArraySequence<T>::getFirst() const{
     return array->get(0);
 }
 
 template <typename T>
-T SequenceArray<T>::getLast(){
+T ArraySequence<T>::getLast() const{
     return array->get(array->getSize() - 1);
 }
 
 template <typename T>
-T SequenceArray<T>::get(size_t index){
+T ArraySequence<T>::get(size_t index) const{
     return array->get(index);
 }
 
 template <typename T>
-size_t SequenceArray<T>::getSize(){
+size_t ArraySequence<T>::getLength() const{
     return size;
 }
 
 template <typename T>
-void SequenceArray<T>::append(T value){
+void ArraySequence<T>::append(T value){
     if(capacity < size + 1){
-        capacity *= 2;
+        capacity = (capacity == 0) ? 1 : capacity * 2;
         array->resize(capacity);
     }
-    array->set(array->size, value);
+    array->set(size, value);
     size++;
 }
 
 template <typename T>
-void SequenceArray<T>::prepend(T value){
+void ArraySequence<T>::prepend(T value){
     if(capacity < size + 1){
         capacity *= 2;
         array->resize(capacity);
@@ -132,11 +132,11 @@ void SequenceArray<T>::prepend(T value){
 }
 
 template<typename T>
-SequenceArray<T>* SequenceArray<T>::getSubsequence(int startIndex, int endIndex) override {
+ArraySequence<T>* ArraySequence<T>::getSubsequence(int startIndex, int endIndex){
     if (startIndex < 0 || endIndex >= array->getSize() || startIndex > endIndex) {
         throw std::out_of_range("Invalid subsequence range");
     }
-    SequenceArray<T>* result = new SequenceArray();
+    ArraySequence<T>* result = new ArraySequence();
     for (int i = startIndex; i <= endIndex; ++i) {
         result->append(array->get(i));
     }
@@ -144,17 +144,17 @@ SequenceArray<T>* SequenceArray<T>::getSubsequence(int startIndex, int endIndex)
 }
 
 template<typename T>
-Sequence<T>* SequenceArray<T>::concat(Sequence<T>& other) {
+Sequence<T>* ArraySequence<T>::concat(Sequence<T>& other) {
     
-    SequenceArray<T>* result = new SequenceArray<T>();
+    ArraySequence<T>* result = new ArraySequence<T>();
 
     
-    for (size_t i = 0; i < array->size; ++i) {
+    for (size_t i = 0; i < size; ++i) {
         result->append(array->get(i));
     }
 
     
-    size_t otherSize = other.getSize();
+    size_t otherSize = other.getLength();
     for (size_t i = 0; i < otherSize; ++i) {
         result->append(other.get(i));
     }
@@ -164,34 +164,34 @@ Sequence<T>* SequenceArray<T>::concat(Sequence<T>& other) {
 
 
 template<typename T>
-SequenceArray<T>::~SequenceArray() { delete array; }
+ArraySequence<T>::~ArraySequence() { delete array; }
 
 template<typename T>
-SequenceList<T>::~SequenceList() { delete list; }
+ListSequence<T>::~ListSequence() { delete list; }
 
 
 template<typename T>
-Sequence<T>::begin(){
+Iterator<T> Sequence<T>::begin(){
     auto enumPtr = getEnumerator();
     return Iterator<T>(enumPtr);
 }
 
 template<typename T>
-Sequence<T>::end(){
-    return Iterator(nullptr, true);
+Iterator<T> Sequence<T>::end(){
+    return Iterator<T>::endIterator();
 }
 
 template<typename T>
-Sequence<T>::getEnumerator(){
-    return SequenceEnumerator(this);
+IEnumerator<T>* Sequence<T>::getEnumerator(){
+    return new SequenceEnumerator<T>(this);
 }
 
 template<typename T>
-SequenceList<T>::operator[](int index){
-    return *list[index];
+T ListSequence<T>::operator[](int index){
+    return (*list)[index];
 }
 
 template<typename T>
-SequenceArray<T>::operator[](int index){
-    return *array[index];
+T ArraySequence<T>::operator[](int index){
+    return (*array)[index];
 }

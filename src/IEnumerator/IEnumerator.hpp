@@ -1,12 +1,13 @@
 #pragma once
 
+template<typename T> class Sequence;
 
 template<typename T>
 class IEnumerator{
     public:
     virtual ~IEnumerator() = default;
     virtual bool moveNext() = 0;
-    virtual T& current() = 0;
+    virtual T current() = 0;
     virtual void reset() = 0;
 };
 
@@ -28,7 +29,7 @@ public:
     SequenceEnumerator(const Sequence<T>* seq);
 
     bool moveNext() override;
-    T& current() override;
+    T current() override;
     void reset() override;
 
 };

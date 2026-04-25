@@ -1,24 +1,24 @@
     
 template<typename T>
 SequenceEnumerator<T>::SequenceEnumerator(const Sequence<T>* seq)
-    : sequence(seq), currentIndex(0), isValid(seq->getSize() > 0) {}
+    : sequence(seq), currentIndex(static_cast<size_t>(-1)), isValid(seq->getLength() > 0) {}
    
 template<typename T>
-bool SequenceEnumerator<T>::moveNext() override {
+bool SequenceEnumerator<T>::moveNext(){
    if (!isValid) return false;
    ++currentIndex;
-   isValid = (currentIndex < sequence->getSize());
+   isValid = (currentIndex < sequence->getLength());
    return isValid;
 }
 
 template<typename T>
-T& SequenceEnumerator<T>::current() override {
+T SequenceEnumerator<T>::current(){
     if (!isValid) throw std::runtime_error("Enumerator is invalid");
-    return const_cast<T&>(sequence->get(currentIndex));
+    return sequence->get(currentIndex);
 }
 
 template<typename T>
-void SequenceEnumerator<T>::reset() override {
+void SequenceEnumerator<T>::reset(){
     currentIndex = 0;
-    isValid = sequence->getSize() > 0;
+    isValid = sequence->getLength() > 0;
 }
