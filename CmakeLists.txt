@@ -3,27 +3,39 @@ project(Lab_2 CXX)
 set(CMAKE_CXX_STANDARD 20)
 
 
-set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/)
+set(SRC 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/)
+
+set(HEADER_DIR
+    ${SRC}DynamicArray/
+    ${SRC}Exception/
+    ${SRC}IEnumerator/
+    ${SRC}LinkedList/
+    ${SRC}Sequence/
+)
+
 set(HEADER_FILES
-    src/DynamicArray/DynamicArray.hpp
-    src/Exception/Exception.hpp
-    src/IEnumerator/IEnumerator.hpp
-    src/IEnumerator/Iterator.hpp
-    src/LinkedList/LinkedList.hpp
-    src/Sequence/Sequence.hpp
-    src/Sequence/BitSequence.hpp
+    ${SRC}DynamicArray/DynamicArray.hpp
+    ${SRC}Exception/Exception.hpp
+    ${SRC}IEnumerator/IEnumerator.hpp
+    ${SRC}IEnumerator/Iterator.hpp
+    ${SRC}LinkedList/LinkedList.hpp
+    ${SRC}Sequence/Sequence.hpp
+    ${SRC}Sequence/BitSequence.hpp
 )
 
 set(TEMPLATE_FILES
-    src/DynamicArray/DynamicArray.tpp
-    src/IEnumerator/IEnumerator.tpp
-    src/IEnumerator/Iterator.tpp
-    src/LinkedList/LinkedList.tpp
-    src/Sequence/Sequence.tpp
+    ${SRC}DynamicArray/DynamicArray.tpp
+    ${SRC}IEnumerator/IEnumerator.tpp
+    ${SRC}IEnumerator/Iterator.tpp
+    ${SRC}LinkedList/LinkedList.tpp
+    ${SRC}Sequence/Sequence.tpp
+    ${SRC}Sequence/ListSequence.tpp
+    ${SRC}Sequence/ArraySequence.tpp
 )
 
 set(SOURCE_FILES
-    src/Sequence/BitSequence.cpp
+    ${SRC}Sequence/BitSequence.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC
@@ -32,7 +44,7 @@ add_library(${PROJECT_NAME} STATIC
     ${TEMPLATE_FILES}
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${SRC})
+target_include_directories(${PROJECT_NAME} PUBLIC ${HEADER_DIR})
 add_executable(main_test ${SRC}/main.cpp)
 
 target_link_libraries(main_test PRIVATE ${PROJECT_NAME})

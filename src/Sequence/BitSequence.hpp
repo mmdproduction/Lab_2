@@ -37,7 +37,7 @@ class Bit{
 
 class BitSequence: public Sequence<Bit>{
     private:
-    DynamicArray<uint64_t> data;
+    DynamicArray<uint64_t>* data;
     public:
 
     BitSequence();

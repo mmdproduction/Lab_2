@@ -1,4 +1,4 @@
-#include"Sequence/Sequence.hpp"
+#include"Sequence.hpp"
 #include<iostream>
 #include<vector>
 

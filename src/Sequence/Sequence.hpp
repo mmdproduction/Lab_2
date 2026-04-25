@@ -1,9 +1,9 @@
 #pragma once
 #include<stdexcept>
 #include <cstdint>
-#include"../LinkedList/LinkedList.hpp"
-#include"../DynamicArray/DynamicArray.hpp"
-#include"../IEnumerator/Iterator.hpp"
+#include"LinkedList.hpp"
+#include"DynamicArray.hpp"
+#include"Iterator.hpp"
 
 template <typename T>
 class Sequence: public IEnumerable<T>{
@@ -81,3 +81,5 @@ class ListSequence : public Sequence<T>{
 };
 
 #include"Sequence.tpp"
+#include"ListSequence.tpp"
+#include"ArraySequence.tpp"
