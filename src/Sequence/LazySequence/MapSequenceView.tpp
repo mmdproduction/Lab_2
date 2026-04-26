@@ -14,7 +14,7 @@ TargetType MapSequenceView<TargetType, SourceType>::getFirst() const {
         auto end = Iterator<TargetType>::endIterator();
         if (iterator == end) {
             delete enumPtr;
-            throw std::runtime_error("Sequence is empty");
+            throw std::runtime_error("Sequence is empty"); //TODO custom exeption
         }
         TargetType result = *iterator;
         delete enumPtr;
@@ -32,7 +32,7 @@ TargetType MapSequenceView<TargetType, SourceType>::getLast() const {
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<TargetType>::endIterator();
 
-        if (iterator == end) throw std::runtime_error("Sequence is empty");
+        if (iterator == end) throw std::runtime_error("Sequence is empty"); //TODO custom exeption
 
         while(++iterator != end){
             result = *iterator;
@@ -64,7 +64,7 @@ size_t MapSequenceView<TargetType, SourceType>::getLength() const {
     }
 
 template<typename TargetType, typename SourceType>
-MapSequenceView*  MapSequenceView<TargetType, SourceType>::getSubsequence(int startIndex, int endIndex) const override {
+MapSequenceView<TargetType, SourceType>*  MapSequenceView<TargetType, SourceType>::getSubsequence(int startIndex, int endIndex) const {
         if (startIndex < 0 || endIndex < startIndex) throw std::out_of_range("Invalid range");
         
         auto subSource = source.getSubsequence(startIndex, endIndex);
@@ -75,6 +75,6 @@ MapSequenceView*  MapSequenceView<TargetType, SourceType>::getSubsequence(int st
     }
 
 template<typename TargetType, typename SourceType>
-Sequence<TargetType>*  MapSequenceView<TargetType, SourceType>::concat(Sequence<TargetType>& other) const override {
+Sequence<TargetType>*  MapSequenceView<TargetType, SourceType>::concat(Sequence<TargetType>& other) const {
     //     return new ConcatSequence<TargetType>(*this, other);
     }

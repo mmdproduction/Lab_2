@@ -8,10 +8,11 @@ int main(){
     ListSequence<int> test = ListSequence<int>(a, 4);
     ArraySequence<int> testa = ArraySequence<int>(a, 4);
 
-    auto ss = testa.map<float>([](int x){return x * 2.34;})->map<int>([](float x){ return int(x / 2) % 3; })->getLast();
+    auto ss = testa.filter([](int x){return (x % 2) == 0; });
+    for(const auto& elem : *ss){
+        std::cout << elem << " ";
+    }
+    std::cout << ss->getLength();
 
-    
-    std::cout << ss << " ";
-
-    //delete ss;
+    delete ss;
 }

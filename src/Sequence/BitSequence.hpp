@@ -3,6 +3,8 @@
 #include <iostream>
 #include <ostream>
 
+
+//FIXME recreate all
 class Bit{
     private:
     unsigned char value;

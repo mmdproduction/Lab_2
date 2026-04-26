@@ -10,7 +10,7 @@ bool FilterEnumerator<T>::moveNext(){
 
             currentValue = source->current();
             isValid = true;
-            return false;
+            return true;
 
         }
     }
@@ -20,7 +20,7 @@ bool FilterEnumerator<T>::moveNext(){
 
 template<typename T>
 T FilterEnumerator<T>::current(){
-    if (!isValid) throw std::runtime_error("Enumerator invalid");
+    if (!isValid) throw std::runtime_error("Enumerator invalid"); //TODO custom exeption
     return currentValue;
 }
 

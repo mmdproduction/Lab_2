@@ -25,3 +25,7 @@ template<typename U>
 Sequence<U>* Sequence<T>::map(std::function<U(const T&)> mapper) const{
     return new MapSequenceView<U, T>(*this, mapper);
 }
+template<typename T>
+Sequence<T>* Sequence<T>::filter(std::function<bool(const T&)> filter) const{
+    return new FilterSequenceView<T>(*this, filter);
+}

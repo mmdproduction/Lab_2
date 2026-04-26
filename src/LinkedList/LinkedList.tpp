@@ -30,8 +30,8 @@ LinkedList<T>::~LinkedList() {
 
 template<typename T>
 T LinkedList<T>::getFirst(){
-    if(size == 0){
-        throw std::runtime_error("Index out of range");
+    if(size == 0){ 
+        throw std::runtime_error("Index out of range"); //TODO custom exeption
     }
     return head->data;
 }
@@ -39,7 +39,7 @@ T LinkedList<T>::getFirst(){
 template<typename T>
 T LinkedList<T>::getLast(){
     if(size == 0){
-        throw std::runtime_error("Index out of range");
+        throw std::runtime_error("Index out of range"); //TODO custom exeption
     }
     return tail->data;
 }
@@ -47,7 +47,7 @@ T LinkedList<T>::getLast(){
 template<typename T>
 T LinkedList<T>::get(int index){
     if(index < 0 || index >= size){
-        throw std::runtime_error("Index out of range");
+        throw std::runtime_error("Index out of range"); //TODO custom exeption
     }
     Node* tmp = head;
     for(size_t i = 0; i < index; ++i){
@@ -59,8 +59,8 @@ T LinkedList<T>::get(int index){
 template<typename T>
 LinkedList<T>* LinkedList<T>::getSubList(int startIndex, int endIndex){
     if((startIndex < 0 || startIndex >= size) && (endIndex < 0 || endIndex >= size)){
-        throw std::runtime_error("Index out of range");
-    }
+        throw std::runtime_error("Index out of range"); //TODO custom exeption 
+    } 
     Node* tpm = head;
     for(size_t i = 0; i < startIndex; ++i){
         tpm = tpm->next;
@@ -110,7 +110,7 @@ void LinkedList<T>::prepend(T item){
 template<typename T>
 void LinkedList<T>::insertAt(T item, int index){
     if(index < 0 || index > size){
-        throw std::runtime_error("Index out of range");
+        throw std::runtime_error("Index out of range"); //TODO custom exeption
     }
     if(index == 0){
         prepend(item);

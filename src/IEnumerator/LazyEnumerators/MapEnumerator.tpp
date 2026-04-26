@@ -14,7 +14,7 @@ bool MapEnumerator<TargetType, SourceType>::moveNext(){
 }
 template<typename TargetType, typename SourceType>
 TargetType MapEnumerator<TargetType, SourceType>::current() {
-        if (!isValid) throw std::runtime_error("Enumerator invalid");
+        if (!isValid) throw std::runtime_error("Enumerator invalid"); //TODO custom exeption
         return currentValue;
     }
 

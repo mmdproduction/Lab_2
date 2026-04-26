@@ -42,6 +42,8 @@ set(TEMPLATE_FILES
     ${SRC}IEnumerator/LazyEnumerators/SkipEnumerator.tpp
     ${SRC}IEnumerator/LazyEnumerators/MapEnumerator.tpp
     ${SRC}IEnumerator/LazyEnumerators/FilterEnumerator.tpp
+    ${SRC}Sequence/LazySequence/MapSequenceView.tpp
+    ${SRC}Sequence/LazySequence/FilterSequenceView.tpp
 )
 
 set(SOURCE_FILES

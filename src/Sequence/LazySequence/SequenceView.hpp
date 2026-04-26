@@ -16,8 +16,7 @@ private:
     std::function<TargetType(const SourceType&)> mapper;
 
 public:
-    MapSequenceView(const Sequence<SourceType>& src, std::function<TargetType(const SourceType&)> mapFunc)
-        : source(src), mapper(mapFunc) {}
+    MapSequenceView(const Sequence<SourceType>& src, std::function<TargetType(const SourceType&)> mapFunc);
 
     IEnumerator<TargetType>* getEnumerator() const override;
 
@@ -29,8 +28,8 @@ public:
 
     size_t getLength() const override;
 
-    void append(TargetType) override { throw std::runtime_error("Read-only"); }
-    void prepend(TargetType) override { throw std::runtime_error("Read-only"); }
+    void append(TargetType) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
+    void prepend(TargetType) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
 
     MapSequenceView* getSubsequence(int startIndex, int endIndex) const override;
 
@@ -44,11 +43,10 @@ template<typename T>
 class FilterSequenceView : public Sequence<T> {
 private:
     const Sequence<T>& source;
-    std::function<bool(const T&)> mapper;
+    std::function<bool(const T&)> filter;
 
 public:
-    FilterSequenceView(const Sequence<T>& src, std::function<T(const T&)> mapFunc)
-        : source(src), mapper(mapFunc) {}
+    FilterSequenceView(const Sequence<T>& src, std::function<T(const T&)> filtFunc);
 
     IEnumerator<T>* getEnumerator() const override;
 
@@ -60,8 +58,8 @@ public:
 
     size_t getLength() const override;
 
-    void append(T) override { throw std::runtime_error("Read-only"); }
-    void prepend(T) override { throw std::runtime_error("Read-only"); }
+    void append(T) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
+    void prepend(T) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
 
     FilterSequenceView* getSubsequence(int startIndex, int endIndex) const override;
 
@@ -71,4 +69,5 @@ public:
     ~FilterSequenceView() override = default;
 };
 
-
+#include"MapSequenceView.tpp"
+#include"FilterSequenceView.tpp"
