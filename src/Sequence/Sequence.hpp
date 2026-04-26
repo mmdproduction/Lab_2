@@ -1,9 +1,11 @@
 #pragma once
 #include<stdexcept>
 #include <cstdint>
+#include <functional>
 #include"LinkedList.hpp"
 #include"DynamicArray.hpp"
 #include"Iterator.hpp"
+
 
 template <typename T>
 class Sequence: public IEnumerable<T>{
@@ -15,14 +17,17 @@ class Sequence: public IEnumerable<T>{
     virtual size_t getLength() const = 0;
     virtual void append(T value) = 0;
     virtual void prepend(T value) = 0;
-    virtual Sequence<T>* getSubsequence(int startIndex, int endIndex) = 0;
-    virtual Sequence<T>* concat(Sequence<T>& list) = 0;
+    virtual Sequence<T>* getSubsequence(int startIndex, int endIndex) const = 0;
+    virtual Sequence<T>* concat(Sequence<T>& list) const = 0;
     virtual T operator[](int index) = 0;
+
+    template<typename U>
+    Sequence<U>* map(std::function<U(const T&)> mapper) const;
 
     Iterator<T> begin();
     Iterator<T> end();
 
-    IEnumerator<T>* getEnumerator() override;
+    IEnumerator<T>* getEnumerator() const override;
 
 };
 
@@ -52,8 +57,8 @@ class ArraySequence : public Sequence<T>{
     size_t getLength() const override;
     void append(T value) override;
     void prepend(T value) override;
-    ArraySequence<T>* getSubsequence(int startIndex, int endIndex) override;
-    Sequence<T>* concat(Sequence<T>& list) override;
+    ArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override;
+    Sequence<T>* concat(Sequence<T>& list) const override;
 };
 
 template<typename T>
@@ -76,9 +81,10 @@ class ListSequence : public Sequence<T>{
     size_t getLength() const override;
     void append(T value) override;
     void prepend(T value) override;
-    ListSequence<T>* getSubsequence(int startIndex, int endIndex) override;
-    Sequence<T>* concat(Sequence<T>& list) override;
+    ListSequence<T>* getSubsequence(int startIndex, int endIndex) const override;
+    Sequence<T>* concat(Sequence<T>& list) const override;
 };
+#include"SequenceView.hpp"
 
 #include"Sequence.tpp"
 #include"ListSequence.tpp"

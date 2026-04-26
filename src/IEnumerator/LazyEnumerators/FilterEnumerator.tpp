@@ -1,6 +1,6 @@
 template<typename T>
 FilterEnumerator<T>::FilterEnumerator(IEnumerator<T>* src, std::function<bool(const T&)> filterFunc)
-        : source(src), mapper(filterFunc), isValid(false) {}
+        : source(src), filter(filterFunc), isValid(false) {}
 
 template<typename T>
 bool FilterEnumerator<T>::moveNext(){

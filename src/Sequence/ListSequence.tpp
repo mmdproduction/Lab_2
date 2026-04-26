@@ -41,7 +41,7 @@ void ListSequence<T>::prepend(T value){
 }
 
 template<typename T>
-ListSequence<T>* ListSequence<T>::getSubsequence(int startIndex, int endIndex){
+ListSequence<T>* ListSequence<T>::getSubsequence(int startIndex, int endIndex) const{
     if (startIndex < 0 || endIndex >= list->getLength() || startIndex > endIndex) {
         throw std::out_of_range("Invalid subsequence range");
     }
@@ -53,7 +53,7 @@ ListSequence<T>* ListSequence<T>::getSubsequence(int startIndex, int endIndex){
 }
 
 template<typename T>
-Sequence<T>* ListSequence<T>::concat(Sequence<T>& other) {
+Sequence<T>* ListSequence<T>::concat(Sequence<T>& other) const{
 
     ListSequence<T>* result = new ListSequence<T>();
 

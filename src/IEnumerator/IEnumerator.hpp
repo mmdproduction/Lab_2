@@ -15,7 +15,7 @@ template<typename T>
 class IEnumerable{
     public:
     virtual ~IEnumerable() = default;
-    virtual IEnumerator<T>* getEnumerator() = 0;
+    virtual IEnumerator<T>* getEnumerator() const = 0;
 };
 
 template<typename T>

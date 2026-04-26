@@ -1,5 +1,5 @@
 template<typename T>
-ConcatEnumerator<T>::ConcatEnumerator(IEnumerator<T>* firstEnum, IEnumerator<T>* SecondEnum)
+ConcatEnumerator<T>::ConcatEnumerator(IEnumerator<T>* firstEnum, IEnumerator<T>* secondEnum)
     : first(firstEnum), second(secondEnum), active(firstEnum), isValid(false) {}
 
 
@@ -31,7 +31,9 @@ T ConcatEnumerator<T>::current(){
 }
 
 template<typename T>
-T ConcatEnumerator<T>::reset(){
-    source->reset();
+void ConcatEnumerator<T>::reset(){
+    first->reset();
+    second->reset();
+    active = first;
     isValid = false;
 }

@@ -12,6 +12,8 @@ set(HEADER_DIR
     ${SRC}IEnumerator/
     ${SRC}LinkedList/
     ${SRC}Sequence/
+    ${SRC}Sequence/LazySequence/
+    ${SRC}IEnumerator/LazyEnumerators/
 )
 
 set(HEADER_FILES
@@ -22,6 +24,9 @@ set(HEADER_FILES
     ${SRC}LinkedList/LinkedList.hpp
     ${SRC}Sequence/Sequence.hpp
     ${SRC}Sequence/BitSequence.hpp
+    ${SRC}IEnumerator/LazyEnumerators/LazyEnumerators.hpp
+    ${SRC}Sequence/LazySequence/SequenceView.hpp
+
 )
 
 set(TEMPLATE_FILES
@@ -32,6 +37,11 @@ set(TEMPLATE_FILES
     ${SRC}Sequence/Sequence.tpp
     ${SRC}Sequence/ListSequence.tpp
     ${SRC}Sequence/ArraySequence.tpp
+    ${SRC}IEnumerator/LazyEnumerators/IndexEnumerator.tpp
+    ${SRC}IEnumerator/LazyEnumerators/ConcatEnumerator.tpp
+    ${SRC}IEnumerator/LazyEnumerators/SkipEnumerator.tpp
+    ${SRC}IEnumerator/LazyEnumerators/MapEnumerator.tpp
+    ${SRC}IEnumerator/LazyEnumerators/FilterEnumerator.tpp
 )
 
 set(SOURCE_FILES

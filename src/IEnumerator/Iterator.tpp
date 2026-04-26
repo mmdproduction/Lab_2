@@ -28,3 +28,12 @@ bool Iterator<T>::operator!=(const Iterator& other) const {
 
         return true;
     }
+
+template<typename T>
+bool Iterator<T>::operator==(const Iterator& other) const {
+
+        if (isEnd == other.isEnd) return true;
+        if (isEnd != other.isEnd) return false;
+
+        return false;
+    }

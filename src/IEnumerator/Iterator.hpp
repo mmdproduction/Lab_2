@@ -12,6 +12,7 @@ class Iterator{
     T operator*() const;
     Iterator<T>& operator++();
     bool operator!=(const Iterator& other) const;
+    bool operator==(const Iterator& other) const;
 
     static Iterator<T> endIterator() {
     return Iterator<T>(nullptr, true);
