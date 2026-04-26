@@ -18,13 +18,16 @@ class Sequence: public IEnumerable<T>{
     virtual void append(T value) = 0;
     virtual void prepend(T value) = 0;
     virtual Sequence<T>* getSubsequence(int startIndex, int endIndex) const = 0; //FIXME create lazy subsequence
-    virtual Sequence<T>* concat(Sequence<T>& list) const = 0; //FIXME create lazy concat
+    
     virtual T operator[](int index) = 0;
 
     template<typename U>
     Sequence<U>* map(std::function<U(const T&)> mapper) const;
-    Sequence<T>* filter(std::function<bool(const T&)> filter) const;
+    Sequence<T>* where(std::function<bool(const T&)> filter) const;
+    Sequence<T>* concat(Sequence<T>& list) const;
 
+    template<typename U, typename F>
+    U reduce(F&& reducer, U initial) const;
     //TODO map-reduce
 
     Iterator<T> begin();
@@ -61,7 +64,6 @@ class ArraySequence : public Sequence<T>{
     void append(T value) override;
     void prepend(T value) override;
     ArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override;
-    Sequence<T>* concat(Sequence<T>& list) const override;
 };
 
 template<typename T>
@@ -85,7 +87,6 @@ class ListSequence : public Sequence<T>{
     void append(T value) override;
     void prepend(T value) override;
     ListSequence<T>* getSubsequence(int startIndex, int endIndex) const override;
-    Sequence<T>* concat(Sequence<T>& list) const override; 
 };
 #include"SequenceView.hpp"
 

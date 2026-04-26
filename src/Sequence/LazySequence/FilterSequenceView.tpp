@@ -77,8 +77,3 @@ FilterSequenceView<T>* FilterSequenceView<T>::getSubsequence(int startIndex, int
         return result;
 
     }
-
-template<typename T>
-Sequence<T>* FilterSequenceView<T>::concat(Sequence<T>& other) const {
-    //     return new ConcatSequence<T>(*this, other);
-    }

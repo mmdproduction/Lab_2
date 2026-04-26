@@ -73,8 +73,3 @@ MapSequenceView<TargetType, SourceType>*  MapSequenceView<TargetType, SourceType
         return result;
 
     }
-
-template<typename TargetType, typename SourceType>
-Sequence<TargetType>*  MapSequenceView<TargetType, SourceType>::concat(Sequence<TargetType>& other) const {
-    //     return new ConcatSequence<TargetType>(*this, other);
-    }

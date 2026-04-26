@@ -8,6 +8,7 @@ template<typename T> class ListSequence;
 template<typename T> class ArraySequence;
 template<typename T> class Iterator;
 
+//FIXME create append/prepend that create new real sequence from view
 
 template<typename TargetType, typename SourceType>
 class MapSequenceView : public Sequence<TargetType> {
@@ -32,9 +33,6 @@ public:
     void prepend(TargetType) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
 
     MapSequenceView* getSubsequence(int startIndex, int endIndex) const override;
-
-     Sequence<TargetType>* concat(Sequence<TargetType>& other) const override;
-
     TargetType operator[](int index) override { return get(index); }
     ~MapSequenceView() override = default;
 };
@@ -63,11 +61,35 @@ public:
 
     FilterSequenceView* getSubsequence(int startIndex, int endIndex) const override;
 
-    Sequence<T>* concat(Sequence<T>& other) const override;
-
     T operator[](int index) override { return get(index); }
     ~FilterSequenceView() override = default;
 };
 
+template<typename T>
+class ConcatSequenceView : public Sequence<T> {
+private:
+    const Sequence<T>& first;
+    const Sequence<T>& second;
+
+public:
+    ConcatSequenceView(const Sequence<T>& firstSrc, const Sequence<T>& secondSrc);
+
+    IEnumerator<T>* getEnumerator() const override;
+
+    T getFirst() const override;
+    T getLast() const override;
+    T get(size_t index) const override;
+    size_t getLength() const override;
+
+    void append(T) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
+    void prepend(T) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
+
+    Sequence<T>* getSubsequence(int startIndex, int endIndex) const override;
+
+    T operator[](int index) override { return get(index); }
+    ~ConcatSequenceView() override = default;
+};
+
 #include"MapSequenceView.tpp"
 #include"FilterSequenceView.tpp"
+#include"ConcatSequenceView.tpp"

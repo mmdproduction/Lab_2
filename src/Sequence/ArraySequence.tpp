@@ -70,24 +70,24 @@ ArraySequence<T>* ArraySequence<T>::getSubsequence(int startIndex, int endIndex)
     return result;
 }
 
-template<typename T>
-Sequence<T>* ArraySequence<T>::concat(Sequence<T>& other) const {
+// template<typename T>
+// Sequence<T>* ArraySequence<T>::concat(Sequence<T>& other) const {
     
-    ArraySequence<T>* result = new ArraySequence<T>();
+//     ArraySequence<T>* result = new ArraySequence<T>();
 
     
-    for (size_t i = 0; i < size; ++i) {
-        result->append(array->get(i));
-    }
+//     for (size_t i = 0; i < size; ++i) {
+//         result->append(array->get(i));
+//     }
 
     
-    size_t otherSize = other.getLength();
-    for (size_t i = 0; i < otherSize; ++i) {
-        result->append(other.get(i));
-    }
+//     size_t otherSize = other.getLength();
+//     for (size_t i = 0; i < otherSize; ++i) {
+//         result->append(other.get(i));
+//     }
 
-    return result;
-}
+//     return result;
+// }
 
 template<typename T>
 ArraySequence<T>::~ArraySequence() { delete array; }

@@ -44,6 +44,7 @@ set(TEMPLATE_FILES
     ${SRC}IEnumerator/LazyEnumerators/FilterEnumerator.tpp
     ${SRC}Sequence/LazySequence/MapSequenceView.tpp
     ${SRC}Sequence/LazySequence/FilterSequenceView.tpp
+    ${SRC}Sequence/LazySequence/ConcatSequenceView.tpp
 )
 
 set(SOURCE_FILES

@@ -52,23 +52,23 @@ ListSequence<T>* ListSequence<T>::getSubsequence(int startIndex, int endIndex) c
     return result;
 }
 
-template<typename T>
-Sequence<T>* ListSequence<T>::concat(Sequence<T>& other) const{
+// template<typename T>
+// Sequence<T>* ListSequence<T>::concat(Sequence<T>& other) const{
 
-    ListSequence<T>* result = new ListSequence<T>();
+//     ListSequence<T>* result = new ListSequence<T>();
 
-    size_t currentSize = list->getLength();
-    for (size_t i = 0; i < currentSize; ++i) {
-        result->append(list->get(i));
-    }
+//     size_t currentSize = list->getLength();
+//     for (size_t i = 0; i < currentSize; ++i) {
+//         result->append(list->get(i));
+//     }
 
-    size_t otherSize = other.getLength();
-    for (size_t i = 0; i < otherSize; ++i) {
-        result->append(other.get(i));
-    }
+//     size_t otherSize = other.getLength();
+//     for (size_t i = 0; i < otherSize; ++i) {
+//         result->append(other.get(i));
+//     }
 
-    return result;
-}
+//     return result;
+// }
 
 template<typename T>
 ListSequence<T>::~ListSequence() { delete list; }

@@ -26,6 +26,23 @@ Sequence<U>* Sequence<T>::map(std::function<U(const T&)> mapper) const{
     return new MapSequenceView<U, T>(*this, mapper);
 }
 template<typename T>
-Sequence<T>* Sequence<T>::filter(std::function<bool(const T&)> filter) const{
+Sequence<T>* Sequence<T>::where(std::function<bool(const T&)> filter) const{
     return new FilterSequenceView<T>(*this, filter);
+}
+
+template<typename T>
+Sequence<T>* Sequence<T>::concat(Sequence<T>& other) const {
+        return new ConcatSequenceView<T>(*this, other);
+    }
+
+template<typename T>
+template<typename U, typename F>    
+U Sequence<T>::reduce(F&& reducer, U initial) const{
+    U result = initial;
+    auto enumPtr = getEnumerator();
+    while (enumPtr->moveNext()) {
+        result = reducer(result, enumPtr->current());
+    }
+    delete enumPtr;
+    return result;
 }
