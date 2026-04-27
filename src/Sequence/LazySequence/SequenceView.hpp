@@ -32,8 +32,8 @@ public:
     void append(TargetType) override { throw ReadOnlyError(); } 
     void prepend(TargetType) override { throw ReadOnlyError(); }
 
-    MapSequenceView* getSubsequence(int startIndex, int endIndex) const override;
     TargetType operator[](int index) override { return get(index); }
+
     ~MapSequenceView() override = default;
 };
 
@@ -59,8 +59,6 @@ public:
     void append(T) override { throw ReadOnlyError(); } 
     void prepend(T) override { throw ReadOnlyError(); } 
 
-    FilterSequenceView* getSubsequence(int startIndex, int endIndex) const override;
-
     T operator[](int index) override { return get(index); }
     ~FilterSequenceView() override = default;
 };
@@ -84,12 +82,36 @@ public:
     void append(T) override { throw ReadOnlyError(); } 
     void prepend(T) override { throw ReadOnlyError(); }
 
-    Sequence<T>* getSubsequence(int startIndex, int endIndex) const override;
 
     T operator[](int index) override { return get(index); }
     ~ConcatSequenceView() override = default;
 };
 
+template<typename T>
+class SubSequenceView : public Sequence<T> {
+private:
+    const Sequence<T>& source;
+    size_t startIndex;
+    size_t endIndex;
+public:
+    SubSequenceView(const Sequence<T>& src, size_t sIndex, size_t eIndex);
+
+    IEnumerator<T>* getEnumerator() const override;
+
+    T getFirst() const override;
+    T getLast() const override;
+    T get(size_t index) const override;
+    size_t getLength() const override;
+
+    void append(T) override { throw ReadOnlyError(); } 
+    void prepend(T) override { throw ReadOnlyError(); }
+
+    T operator[](int index) override { return get(index); }
+    ~SubSequenceView() override = default;
+};
+
 #include"MapSequenceView.tpp"
 #include"FilterSequenceView.tpp"
 #include"ConcatSequenceView.tpp"
+#include"SubSequenceView.tpp"
+

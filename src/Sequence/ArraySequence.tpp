@@ -64,35 +64,4 @@ void ArraySequence<T>::prepend(T value){
 }
 
 template<typename T>
-ArraySequence<T>* ArraySequence<T>::getSubsequence(int startIndex, int endIndex) const {
-    if (startIndex < 0 || endIndex >= array->getSize() || startIndex > endIndex) {
-        throw std::out_of_range("Invalid subsequence range"); //TODO custom exception
-    }
-    ArraySequence<T>* result = new ArraySequence();
-    for (int i = startIndex; i <= endIndex; ++i) {
-        result->append(array->get(i));
-    }
-    return result;
-}
-
-// template<typename T>
-// Sequence<T>* ArraySequence<T>::concat(Sequence<T>& other) const {
-    
-//     ArraySequence<T>* result = new ArraySequence<T>();
-
-    
-//     for (size_t i = 0; i < size; ++i) {
-//         result->append(array->get(i));
-//     }
-
-    
-//     size_t otherSize = other.getLength();
-//     for (size_t i = 0; i < otherSize; ++i) {
-//         result->append(other.get(i));
-//     }
-
-//     return result;
-// }
-
-template<typename T>
 ArraySequence<T>::~ArraySequence() { delete array; }

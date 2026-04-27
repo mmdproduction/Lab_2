@@ -1,15 +1,14 @@
 template<typename T>
-FilterSequenceView<T>::FilterSequenceView(const Sequence<T>& src, std::function<T(const T&)> filtFunc)
-    : source(src), filter(filtFunc) {}
+SubSequenceView<T>::SubSequenceView(const Sequence<T>& src, size_t sIndex, size_t eIndex): source(src), startIndex(sIndex), endIndex(eIndex){}
 
 template<typename T>
-IEnumerator<T>* FilterSequenceView<T>::getEnumerator() const {
-    return new FilterEnumerator(source.getEnumerator(), filter);
+IEnumerator<T>* SubSequenceView<T>::getEnumerator() const{
+    return new SkipEnumerator(source.getEnumerator(), startIndex, endIndex - startIndex + 1);
 }
 
 template<typename T>
-T FilterSequenceView<T>::getFirst() const {
-        auto enumPtr = getEnumerator();
+T SubSequenceView<T>::getFirst() const{
+    auto enumPtr = getEnumerator();
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<T>::endIterator();
         if (iterator == end) {
@@ -19,10 +18,10 @@ T FilterSequenceView<T>::getFirst() const {
         T result = *iterator;
         delete enumPtr;
         return result;
-    }
+}
 
 template<typename T>
-T FilterSequenceView<T>::getLast() const {
+T SubSequenceView<T>::getLast() const{
         T result;
         
         auto enumPtr = getEnumerator();
@@ -30,37 +29,31 @@ T FilterSequenceView<T>::getLast() const {
         auto end = Iterator<T>::endIterator();
 
         if (iterator == end) throw EmptySequence();
+
         while(++iterator != end){
             result = *iterator;
         }
         
         delete enumPtr;
         return result;
-    }
+}
+
 
 template<typename T>
-T FilterSequenceView<T>::get(size_t index) const {
-        auto enumPtr = new IndexEnumerator<T>(getEnumerator(), index);
+T SubSequenceView<T>::get(size_t index) const {
+    auto enumPtr = new IndexEnumerator<T>(getEnumerator(), index);
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<T>::endIterator();
 
         if (iterator == end) {
             delete enumPtr;
-            throw IndexOutOfRange(index);
+            throw IndexOutOfRange();
         }
 
         T result = *iterator;
         delete enumPtr;
         return result;
-    }
+}
 
 template<typename T>
-size_t FilterSequenceView<T>::getLength() const{
-    size_t count = 0;
-    auto enumPtr = getEnumerator();
-    while(enumPtr->moveNext()){
-        ++count;
-    }
-    delete enumPtr;
-    return count;
-}
+size_t SubSequenceView<T>::getLength() const { return endIndex - startIndex + 1; }

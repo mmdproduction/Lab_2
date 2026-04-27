@@ -36,27 +36,3 @@ size_t ConcatSequenceView<T>::getLength() const{
 }
 
 
-template<typename T>
-Sequence<T>* ConcatSequenceView<T>::getSubsequence(int startIndex, int endIndex) const {
-    if (startIndex < 0 || endIndex < startIndex) throw IndexOutOfRange();
-    size_t lenFirst = first.getLength();
-    size_t concatLen = lenFirst + second.getLength();
-
-    if (endIndex >= static_cast<int>(concatLen)) {
-        throw IndexOutOfRange(endIndex);
-    }
-
-    if (endIndex < static_cast<int>(lenFirst)) {
-        return first.getSubsequence(startIndex, endIndex);
-    }
-
-    if (startIndex >= static_cast<int>(lenFirst)) {
-        return second.getSubsequence(startIndex - lenFirst, endIndex - lenFirst);
-    }
-
-    Sequence<T>* leftPart = first.getSubsequence(startIndex, lenFirst - 1);
-    Sequence<T>* rightPart = second.getSubsequence(0, endIndex - lenFirst);
-
-    return new ConcatSequenceView<T>(*leftPart, *rightPart);
-    }
-

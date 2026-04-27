@@ -62,14 +62,3 @@ template<typename TargetType, typename SourceType>
 size_t MapSequenceView<TargetType, SourceType>::getLength() const {
         return source.getLength();
     }
-
-template<typename TargetType, typename SourceType>
-MapSequenceView<TargetType, SourceType>*  MapSequenceView<TargetType, SourceType>::getSubsequence(int startIndex, int endIndex) const {
-        if (startIndex < 0 || endIndex < startIndex) throw IndexOutOfRange();
-        
-        auto subSource = source.getSubsequence(startIndex, endIndex);
-        auto result = new MapSequenceView<TargetType, SourceType>(*subSource, mapper);
-        delete subSource;
-        return result;
-
-    }

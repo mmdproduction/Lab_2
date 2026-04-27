@@ -8,7 +8,7 @@ int main(){
     ListSequence<int> test = ListSequence<int>(a, 4);
     ArraySequence<int> testa = ArraySequence<int>(a, 4);
 
-    auto ss = testa.where([](int x){return (x % 2) == 0; })->map<int>([](int x){return x * 100; })->concat(*(test.map<int>([](int x){return x * 3; })))->concat(testa)->concat(test)->where([](int x){return (x % 2) == 0; })->map<int>([](int x){return x * 100; });
+    auto ss = testa.where([](int x){return (x % 2) == 0; })->map<int>([](int x){return x * 100; })->concat(*(test.map<int>([](int x){return x * 3; })))->concat(testa)->concat(test)->where([](int x){return (x % 2) == 0; })->map<int>([](int x){return x * 100; })->getSubSequence(1, 2);
     for(const auto& elem : *ss){
         std::cout << elem << " ";
     }

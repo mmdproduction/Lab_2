@@ -36,6 +36,11 @@ Sequence<T>* Sequence<T>::concat(Sequence<T>& other) const {
     }
 
 template<typename T>
+Sequence<T>* Sequence<T>::getSubSequence(size_t startIndex, size_t endIndex) const {
+        return new SubSequenceView<T>(*this, startIndex, endIndex);
+    }
+
+template<typename T>
 template<typename U, typename F>    
 U Sequence<T>::reduce(F&& reducer, U initial) const{
     U result = initial;

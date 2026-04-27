@@ -45,6 +45,7 @@ set(TEMPLATE_FILES
     ${SRC}Sequence/LazySequence/MapSequenceView.tpp
     ${SRC}Sequence/LazySequence/FilterSequenceView.tpp
     ${SRC}Sequence/LazySequence/ConcatSequenceView.tpp
+    ${SRC}Sequence/LazySequence/SubSequenceView.tpp
 )
 
 set(SOURCE_FILES

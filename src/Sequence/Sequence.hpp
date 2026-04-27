@@ -17,8 +17,7 @@ class Sequence: public IEnumerable<T>{
     virtual size_t getLength() const = 0;
     virtual void append(T value) = 0;
     virtual void prepend(T value) = 0;
-    virtual Sequence<T>* getSubsequence(int startIndex, int endIndex) const = 0; //FIXME create lazy subsequence
-    
+    Sequence<T>* getSubSequence(size_t startIndex, size_t endIndex) const;
     virtual T operator[](int index) = 0;
 
     template<typename U>
@@ -64,7 +63,6 @@ class ArraySequence : public Sequence<T>{
     size_t getLength() const override;
     void append(T value) override;
     void prepend(T value) override;
-    ArraySequence<T>* getSubsequence(int startIndex, int endIndex) const override;
 };
 
 template<typename T>
@@ -88,7 +86,6 @@ class ListSequence : public Sequence<T>{
     size_t getLength() const override;
     void append(T value) override;
     void prepend(T value) override;
-    ListSequence<T>* getSubsequence(int startIndex, int endIndex) const override;
 };
 #include"SequenceView.hpp"
 
