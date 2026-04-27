@@ -53,7 +53,10 @@ set(SOURCE_FILES
 
 set(TEST_SOURCE_FILES 
     tests/DynamicArrayTest.cpp
-    tests/LinkedListTest.cpp)
+    tests/LinkedListTest.cpp
+    tests/ArraySequenceTest.cpp
+    tests/ListSequenceTest.cpp
+    )
 
 add_library(${PROJECT_NAME} STATIC
     ${SOURCE_FILES}

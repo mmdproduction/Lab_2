@@ -11,9 +11,13 @@ ArraySequence<T>::ArraySequence(T* item, int count) : capacity(count), size(coun
 
 template<typename T>
 ArraySequence<T>::ArraySequence(const ArraySequence<T>& other) {
-    array = new DynamicArray<T>(other.array);
+    array = new DynamicArray<T>(*(other.array));
     capacity = other.capacity;
     size = other.size;
+}
+template<typename T>
+ArraySequence<T>::ArraySequence(const std::initializer_list<T>& list): capacity(list.size()), size(list.size()) {
+    array = new DynamicArray<T>(list);
 }
 
 template <typename T>
@@ -23,7 +27,7 @@ T ArraySequence<T>::getFirst() const{
 
 template <typename T>
 T ArraySequence<T>::getLast() const{
-    return array->get(array->getSize() - 1);
+    return array->get(size - 1);
 }
 
 template <typename T>
@@ -48,20 +52,21 @@ void ArraySequence<T>::append(T value){
 
 template <typename T>
 void ArraySequence<T>::prepend(T value){
-    if(capacity < size + 1){
-        capacity *= 2;
+    if(capacity <= size){
+        capacity = (capacity == 0) ? 1 : capacity * 2;
         array->resize(capacity);
     }
     for(size_t i = size; i > 0; --i){
         array->set(i, array->get(i - 1));
     }
     array->set(0, value);
+    size++;
 }
 
 template<typename T>
 ArraySequence<T>* ArraySequence<T>::getSubsequence(int startIndex, int endIndex) const {
     if (startIndex < 0 || endIndex >= array->getSize() || startIndex > endIndex) {
-        throw std::out_of_range("Invalid subsequence range");
+        throw std::out_of_range("Invalid subsequence range"); //TODO custom exception
     }
     ArraySequence<T>* result = new ArraySequence();
     for (int i = startIndex; i <= endIndex; ++i) {

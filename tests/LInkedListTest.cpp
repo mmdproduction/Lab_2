@@ -29,6 +29,51 @@ TEST(LinkedListTest, AppendAndGet) {
     EXPECT_EQ(list.get(1), 100);
 }
 
+TEST(LinkedListTest, InsertAndGet) {
+    LinkedList<int> list;
+    list.insertAt(4, 0);
+    list.insertAt(100, 1);
+    
+    EXPECT_EQ(list.get(0), 4);
+    EXPECT_EQ(list.get(1), 100);
+}
+
+TEST(LinkedListTest, PrependAndGet) {
+    LinkedList<int> list;
+    list.prepend(42);
+    list.prepend(100);
+    
+    EXPECT_EQ(list.get(1), 42);
+    EXPECT_EQ(list.get(0), 100);
+}
+
+TEST(LinkedListTest, AppendAndOperator) {
+    LinkedList<int> list;
+    list.append(42);
+    list.append(100);
+    
+    EXPECT_EQ(list[0], 42);
+    EXPECT_EQ(list[1], 100);
+}
+
+TEST(LinkedListTest, InsertAndOperator) {
+    LinkedList<int> list;
+    list.insertAt(4, 0);
+    list.insertAt(100, 1);
+    
+    EXPECT_EQ(list[0], 4);
+    EXPECT_EQ(list[1], 100);
+}
+
+TEST(LinkedListTest, PrependAndOperator) {
+    LinkedList<int> list;
+    list.prepend(42);
+    list.prepend(100);
+    
+    EXPECT_EQ(list[1], 42);
+    EXPECT_EQ(list[0], 100);
+}
+
 TEST(LinkedListTest, OutOfRange) {
     LinkedList<int> list;
     

@@ -11,6 +11,16 @@ ListSequence<T>::ListSequence(T* item, int count) {
 }
 
 template <typename T>
+ListSequence<T>::ListSequence(const ListSequence<T>& other){
+    list = new LinkedList(*(other.list));
+}
+
+template<typename T>
+ListSequence<T>::ListSequence(const std::initializer_list<T>& list){
+    this->list = new LinkedList(list);
+}
+
+template <typename T>
 T ListSequence<T>::getFirst() const{
     return list->getFirst();
 }

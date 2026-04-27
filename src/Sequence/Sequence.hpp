@@ -53,6 +53,7 @@ class ArraySequence : public Sequence<T>{
     ArraySequence();
     ArraySequence(T* item, int count);
     ArraySequence(const ArraySequence<T>& other);
+    ArraySequence(const std::initializer_list<T>& list);
     ~ArraySequence();
 
     T getFirst() const override;
@@ -77,6 +78,7 @@ class ListSequence : public Sequence<T>{
     ListSequence();
     ListSequence(T* item, int count);
     ListSequence(const ListSequence<T>& other);
+    ListSequence(const std::initializer_list<T>& list);
     ~ListSequence();
 
     T getFirst() const override;
