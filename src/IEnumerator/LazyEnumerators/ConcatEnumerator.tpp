@@ -26,7 +26,7 @@ bool ConcatEnumerator<T>::moveNext(){
 
 template<typename T>
 T ConcatEnumerator<T>::current(){
-    if (!isValid) throw std::runtime_error("Enumerator invalid"); //TODO custom exeption
+    if (!isValid) throw InvalidEnumerator();
     return currentValue;
 }
 

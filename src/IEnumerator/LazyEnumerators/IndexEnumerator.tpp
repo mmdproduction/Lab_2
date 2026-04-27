@@ -22,7 +22,7 @@ bool IndexEnumerator<T>::moveNext(){
 
 template<typename T>
 T IndexEnumerator<T>::current(){
-    if (!isValid) throw std::runtime_error("Enumerator invalid"); //TODO custom exeption
+    if (!isValid) InvalidEnumerator();
     return currentValue;
 }
 

@@ -36,11 +36,11 @@ DynamicArray<T>::~DynamicArray() {
 }
 
 
-//FIXME fix trubles
+
 template<typename T>
 void DynamicArray<T>::set(size_t index, T value){
-    if(index < 0 || index >= size){
-        throw std::out_of_range("Index out of range"); //TODO custom exeption
+    if(index >= size){
+        throw IndexOutOfRange(index, size);
     }
     data[index] = value;
 }
@@ -48,7 +48,7 @@ void DynamicArray<T>::set(size_t index, T value){
 template<typename T>
 T DynamicArray<T>::get(size_t index) {
     if (index >= size) {
-        throw std::out_of_range("Index out of range"); //TODO custom exeption
+        throw IndexOutOfRange(index, size);
     }
     return data[index];
 }

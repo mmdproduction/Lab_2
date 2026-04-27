@@ -1,5 +1,5 @@
 #pragma once
-#include<stdexcept>
+#include"Exception.hpp"
 
 template<typename T>
 class DynamicArray{

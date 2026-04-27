@@ -22,7 +22,7 @@ bool SkipEnumerator<T>::moveNext(){
 
 template<typename T>
 T SkipEnumerator<T>::current(){
-    if (!isValid) throw std::runtime_error("Enumerator invalid"); //TODO custom exeption
+    if (!isValid) throw InvalidEnumerator();
     return source->current();
 }
 

@@ -29,8 +29,8 @@ public:
 
     size_t getLength() const override;
 
-    void append(TargetType) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
-    void prepend(TargetType) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
+    void append(TargetType) override { throw ReadOnlyError(); } 
+    void prepend(TargetType) override { throw ReadOnlyError(); }
 
     MapSequenceView* getSubsequence(int startIndex, int endIndex) const override;
     TargetType operator[](int index) override { return get(index); }
@@ -56,8 +56,8 @@ public:
 
     size_t getLength() const override;
 
-    void append(T) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
-    void prepend(T) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
+    void append(T) override { throw ReadOnlyError(); } 
+    void prepend(T) override { throw ReadOnlyError(); } 
 
     FilterSequenceView* getSubsequence(int startIndex, int endIndex) const override;
 
@@ -81,8 +81,8 @@ public:
     T get(size_t index) const override;
     size_t getLength() const override;
 
-    void append(T) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
-    void prepend(T) override { throw std::runtime_error("Read-only"); } //TODO custom exeption
+    void append(T) override { throw ReadOnlyError(); } 
+    void prepend(T) override { throw ReadOnlyError(); }
 
     Sequence<T>* getSubsequence(int startIndex, int endIndex) const override;
 

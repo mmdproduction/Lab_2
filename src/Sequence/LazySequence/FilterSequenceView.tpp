@@ -47,7 +47,7 @@ T FilterSequenceView<T>::get(size_t index) const {
 
         if (iterator == end) {
             delete enumPtr;
-            throw std::out_of_range("Index out of range");
+            throw IndexOutOfRange(index);
         }
 
         T result = *iterator;
@@ -69,7 +69,7 @@ size_t FilterSequenceView<T>::getLength() const{
 
 template<typename T>
 FilterSequenceView<T>* FilterSequenceView<T>::getSubsequence(int startIndex, int endIndex) const {
-        if (startIndex < 0 || endIndex < startIndex) throw std::out_of_range("Invalid range"); //TODO custom exception
+        if (startIndex < 0 || endIndex < startIndex) throw IndexOutOfRange();
         
         auto subSource = source.getSubsequence(startIndex, endIndex);
         auto result = new FilterSequenceView<T>(*subSource, filter);

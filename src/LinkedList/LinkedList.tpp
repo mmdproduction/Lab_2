@@ -2,7 +2,7 @@ template<typename T>
 LinkedList<T>::LinkedList(): size(0), head(nullptr), tail(nullptr){}
 
 template<typename T>
-LinkedList<T>::LinkedList(T* item, int count): size(count){
+LinkedList<T>::LinkedList(T* item, int count): size(0), head(nullptr), tail(nullptr){
     for(size_t i = 0; i < count; ++i){
         append(item[i]);
     }
@@ -31,7 +31,7 @@ LinkedList<T>::~LinkedList() {
 template<typename T>
 T LinkedList<T>::getFirst(){
     if(size == 0){ 
-        throw std::runtime_error("Index out of range"); //TODO custom exeption
+        throw IndexOutOfRange(0, size);
     }
     return head->data;
 }
@@ -39,7 +39,7 @@ T LinkedList<T>::getFirst(){
 template<typename T>
 T LinkedList<T>::getLast(){
     if(size == 0){
-        throw std::runtime_error("Index out of range"); //TODO custom exeption
+        throw IndexOutOfRange(0, size); 
     }
     return tail->data;
 }
@@ -47,27 +47,36 @@ T LinkedList<T>::getLast(){
 template<typename T>
 T LinkedList<T>::get(int index){
     if(index < 0 || index >= size){
-        throw std::runtime_error("Index out of range"); //TODO custom exeption
+        throw IndexOutOfRange(index, size); 
     }
     Node* tmp = head;
-    for(size_t i = 0; i < index; ++i){
+    for(int i = 0; i < index; ++i){
+        if(tmp == nullptr){
+            throw InvalidPointer();
+        }
         tmp = tmp->next;
     }
+    if(tmp == nullptr){
+            throw InvalidPointer();
+        }
     return tmp->data;
 }
 
 template<typename T>
 LinkedList<T>* LinkedList<T>::getSubList(int startIndex, int endIndex){
-    if((startIndex < 0 || startIndex >= size) && (endIndex < 0 || endIndex >= size)){
-        throw std::runtime_error("Index out of range"); //TODO custom exeption 
+    if(startIndex < 0 || startIndex >= size){
+        throw IndexOutOfRange(startIndex, size);
+    } 
+    if(endIndex < 0 || endIndex >= size){
+        throw IndexOutOfRange(endIndex, size);
     } 
     Node* tpm = head;
     for(size_t i = 0; i < startIndex; ++i){
         tpm = tpm->next;
     }
-    LinkedList<T> subList = new LinkedList();
+    LinkedList<T>* subList = new LinkedList();
     for(size_t i = startIndex; i < endIndex; ++i){
-        subList.append(tpm->data);
+        subList->append(tpm->data);
         tpm = tpm->next;
     }
     return subList;
@@ -96,7 +105,7 @@ void LinkedList<T>::append(T item){
 template<typename T>
 void LinkedList<T>::prepend(T item){
     Node* node = new Node(item);
-    if(head = nullptr){
+    if(head == nullptr){
         head = node;
         tail = head;
     }
@@ -110,7 +119,7 @@ void LinkedList<T>::prepend(T item){
 template<typename T>
 void LinkedList<T>::insertAt(T item, int index){
     if(index < 0 || index > size){
-        throw std::runtime_error("Index out of range"); //TODO custom exeption
+        throw IndexOutOfRange(index, size);
     }
     if(index == 0){
         prepend(item);

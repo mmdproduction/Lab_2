@@ -22,7 +22,7 @@ T ConcatSequenceView<T>::get(size_t index) const {
 
         if (iterator == end) {
             delete enumPtr;
-            throw std::out_of_range("Index out of range");
+            throw IndexOutOfRange();
         }
 
         T result = *iterator;
@@ -38,12 +38,12 @@ size_t ConcatSequenceView<T>::getLength() const{
 
 template<typename T>
 Sequence<T>* ConcatSequenceView<T>::getSubsequence(int startIndex, int endIndex) const {
-    if (startIndex < 0 || endIndex < startIndex) throw std::out_of_range("Invalid range"); //TODO custom exception
+    if (startIndex < 0 || endIndex < startIndex) throw IndexOutOfRange();
     size_t lenFirst = first.getLength();
     size_t concatLen = lenFirst + second.getLength();
 
     if (endIndex >= static_cast<int>(concatLen)) {
-        throw std::out_of_range("End index out of range");
+        throw IndexOutOfRange(endIndex);
     }
 
     if (endIndex < static_cast<int>(lenFirst)) {
