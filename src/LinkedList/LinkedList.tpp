@@ -19,6 +19,14 @@ LinkedList<T>::LinkedList(const LinkedList<T>& list): size(0), head(nullptr), ta
 } 
 
 template<typename T>
+LinkedList<T>::LinkedList(const std::initializer_list<T>& list): size(0), head(nullptr), tail(nullptr){
+    for(const auto elem : list){
+        append(elem);
+    }
+} 
+
+
+template<typename T>
 LinkedList<T>::~LinkedList() {
     Node* current = head;
     while(current != nullptr) {

@@ -20,8 +20,9 @@ class LinkedList{
     public:
 
     LinkedList();
-    LinkedList(T* items, int count);
-    LinkedList(const LinkedList<T>& list);
+    explicit LinkedList(T* items, int count);
+    explicit LinkedList(const LinkedList<T>& list);
+    explicit LinkedList(const std::initializer_list<T>& list);
     ~LinkedList();
 
     T getFirst();

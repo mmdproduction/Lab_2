@@ -14,7 +14,7 @@ TargetType MapSequenceView<TargetType, SourceType>::getFirst() const {
         auto end = Iterator<TargetType>::endIterator();
         if (iterator == end) {
             delete enumPtr;
-            throw std::runtime_error("Sequence is empty"); //TODO custom exeption
+            throw EmptySequence();
         }
         TargetType result = *iterator;
         delete enumPtr;
@@ -32,7 +32,7 @@ TargetType MapSequenceView<TargetType, SourceType>::getLast() const {
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<TargetType>::endIterator();
 
-        if (iterator == end) throw std::runtime_error("Sequence is empty"); //TODO custom exeption
+        if (iterator == end) throw EmptySequence();
 
         while(++iterator != end){
             result = *iterator;
@@ -50,7 +50,7 @@ TargetType MapSequenceView<TargetType, SourceType>::get(size_t index) const {
 
         if (iterator == end) {
             delete enumPtr;
-            throw std::out_of_range("Index out of range");
+            throw IndexOutOfRange();
         }
 
         TargetType result = *iterator;
@@ -65,7 +65,7 @@ size_t MapSequenceView<TargetType, SourceType>::getLength() const {
 
 template<typename TargetType, typename SourceType>
 MapSequenceView<TargetType, SourceType>*  MapSequenceView<TargetType, SourceType>::getSubsequence(int startIndex, int endIndex) const {
-        if (startIndex < 0 || endIndex < startIndex) throw std::out_of_range("Invalid range");
+        if (startIndex < 0 || endIndex < startIndex) throw IndexOutOfRange();
         
         auto subSource = source.getSubsequence(startIndex, endIndex);
         auto result = new MapSequenceView<TargetType, SourceType>(*subSource, mapper);

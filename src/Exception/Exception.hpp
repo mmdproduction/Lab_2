@@ -31,7 +31,7 @@ class IndexOutOfRange : public Exception{
 class InvalidPointer : public Exception{
     public:
     explicit InvalidPointer()
-        : Exception("Ошибка указатель не действителен!"){}
+        : Exception("Ошибка: указатель не действителен!"){}
 };
 
 class ReadOnlyError : public Exception{
@@ -46,3 +46,10 @@ class InvalidEnumerator : public Exception{
         : Exception("Недопустимый элемент перечисления!"){}
 };
 
+
+
+class EmptySequence : public Exception{
+    public:
+    explicit EmptySequence()
+        : Exception("Последовательность пуста!"){}
+};

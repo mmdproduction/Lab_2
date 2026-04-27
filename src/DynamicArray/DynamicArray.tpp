@@ -18,6 +18,23 @@ DynamicArray<T>::DynamicArray(const DynamicArray& other) : size(other.size) {
 }
 
 template<typename T>
+DynamicArray<T>::DynamicArray(T* array, size_t count): size(count){
+    data = new T[size];
+    for(size_t i = 0; i < size; ++i){
+        data[i] = array[i];
+    }
+}
+
+template<typename T>
+DynamicArray<T>::DynamicArray(const std::initializer_list<T>& list): size(list.size()) {
+    data = new T[size];
+    size_t i = 0;
+    for(const auto elem : list){
+        data[i++] = elem;
+    }
+}
+
+template<typename T>
 DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray& other) {
     if (this != &other) {
         delete[] data;

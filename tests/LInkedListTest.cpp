@@ -14,6 +14,12 @@ TEST(LinkedListTest, ConstructorWithArray){
     EXPECT_EQ(list.get(3), 4);
 }
 
+TEST(LinkedListTest, ConstructorWithInitializeList){
+    LinkedList<int> list({1, 2, 3, 4});
+    EXPECT_EQ(list.getLength(), 4);
+    EXPECT_EQ(list.get(3), 4);
+}
+
 TEST(LinkedListTest, AppendAndGet) {
     LinkedList<int> list;
     list.append(42);

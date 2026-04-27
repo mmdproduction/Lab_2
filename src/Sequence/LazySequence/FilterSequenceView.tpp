@@ -14,7 +14,7 @@ T FilterSequenceView<T>::getFirst() const {
         auto end = Iterator<T>::endIterator();
         if (iterator == end) {
             delete enumPtr;
-            throw std::runtime_error("Sequence is empty"); //TODO custom exeption
+            throw EmptySequence();
         }
         T result = *iterator;
         delete enumPtr;
@@ -29,8 +29,7 @@ T FilterSequenceView<T>::getLast() const {
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<T>::endIterator();
 
-        if (iterator == end) throw std::runtime_error("Sequence is empty"); //TODO custom exeption
-
+        if (iterator == end) throw EmptySequence();
         while(++iterator != end){
             result = *iterator;
         }

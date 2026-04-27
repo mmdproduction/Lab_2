@@ -11,7 +11,9 @@ class DynamicArray{
 
     DynamicArray();
     explicit DynamicArray(size_t size);
-    DynamicArray(const DynamicArray& other);
+    explicit DynamicArray(const DynamicArray& other);
+    explicit DynamicArray(T* array, size_t count);
+    DynamicArray(const std::initializer_list<T>& list);
 
     DynamicArray& operator=(const DynamicArray& other);
 

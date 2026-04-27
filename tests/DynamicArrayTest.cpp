@@ -11,12 +11,18 @@ TEST(DynamicArrayTest, ConstructorWithSize) {
     EXPECT_EQ(arr.getSize(), 10);
 }
 
-// TEST(LinkedListTest, ConstructorWithArray){
-//     int a[] = {1, 2, 3, 4};
-//     DynamicArray<int> arr(a, 4);
-//     EXPECT_EQ(arr.getSize(), 4);
-//     EXPECT_EQ(arr.get(3), 4);
-// }
+TEST(DynamicArrayTest, ConstructorWithArray){
+    int a[] = {1, 2, 3, 4};
+    DynamicArray<int> arr(a, 4);
+    EXPECT_EQ(arr.getSize(), 4);
+    EXPECT_EQ(arr.get(3), 4);
+}
+
+TEST(DynamicArrayTest, ConstructorWithInitializerList){
+    DynamicArray<int> arr({1, 2, 3, 4});
+    EXPECT_EQ(arr.getSize(), 4);
+    EXPECT_EQ(arr.get(3), 4);
+}
 
 TEST(DynamicArrayTest, SetAndGet) {
     DynamicArray<int> arr(5);
