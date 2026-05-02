@@ -1,7 +1,7 @@
     
 template<typename T>
 SequenceEnumerator<T>::SequenceEnumerator(const Sequence<T>* seq)
-    : sequence(seq), currentIndex(static_cast<size_t>(-1)), isValid(seq->getLength() > 0) {}
+    : sequence(seq), currentIndex(-1), isValid(seq->getLength() > 0) {}
    
 template<typename T>
 bool SequenceEnumerator<T>::moveNext(){

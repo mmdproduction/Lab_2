@@ -22,7 +22,7 @@ template<typename T>
 class SequenceEnumerator : public IEnumerator<T> {
 private:
     const Sequence<T>* sequence;
-    size_t currentIndex;
+    long long currentIndex;
     bool isValid;
 
 public:

@@ -81,7 +81,7 @@ enable_testing()
 add_executable(tests
     ${TEST_SOURCE_FILES}
 )
-target_compile_definitions(tests PRIVATE GTEST_HAS_COLOR=1)
+
 target_link_libraries(tests PRIVATE 
     ${PROJECT_NAME} 
     gtest_main

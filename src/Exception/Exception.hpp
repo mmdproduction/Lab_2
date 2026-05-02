@@ -7,7 +7,7 @@ class Exception : public std::exception {
     protected:
     std::string message;
     public:
-    explicit Exception(const std::string& msg = "Неизвестная ошибка"): message(msg){}
+    explicit Exception(const std::string& msg = "РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°"): message(msg){}
     const char* what() const noexcept override {
         return message.c_str();
     }
@@ -17,39 +17,43 @@ class Exception : public std::exception {
 class IndexOutOfRange : public Exception{
     public:
     explicit IndexOutOfRange(int index, int size)
-        : Exception("Выход за границы! Индекс: "
-        + std::to_string(index) + ", Размер: " +  std::to_string(size)){}
+        : Exception("Р’С‹С…РѕРґ Р·Р° РіСЂР°РЅРёС†С‹! РРЅРґРµРєСЃ: "
+        + std::to_string(index) + ", Р Р°Р·РјРµСЂ: " +  std::to_string(size)){}
 
         explicit IndexOutOfRange(int index)
-        : Exception("Выход за границы! Индекс: "
+        : Exception("Р’С‹С…РѕРґ Р·Р° РіСЂР°РЅРёС†С‹! РРЅРґРµРєСЃ: "
         + std::to_string(index)){}
 
         explicit IndexOutOfRange()
-        : Exception("Неверный индекс!"){}
+        : Exception("РќРµРІРµСЂРЅС‹Р№ РёРЅРґРµРєСЃ!"){}
 };
 
 class InvalidPointer : public Exception{
     public:
     explicit InvalidPointer()
-        : Exception("Ошибка: указатель не действителен!"){}
+        : Exception("РћС€РёР±РєР°: СѓРєР°Р·Р°С‚РµР»СЊ РЅРµ РґРµР№СЃС‚РІРёС‚РµР»РµРЅ!"){}
 };
 
 class ReadOnlyError : public Exception{
     public:
     explicit ReadOnlyError()
-        : Exception("Данные только для чтения!"){}
+        : Exception("Р”Р°РЅРЅС‹Рµ С‚РѕР»СЊРєРѕ РґР»СЏ С‡С‚РµРЅРёСЏ!"){}
 };
 
 class InvalidEnumerator : public Exception{
     public:
     explicit InvalidEnumerator()
-        : Exception("Недопустимый элемент перечисления!"){}
+        : Exception("РќРµРґРѕРїСѓСЃС‚РёРјС‹Р№ СЌР»РµРјРµРЅС‚ РїРµСЂРµС‡РёСЃР»РµРЅРёСЏ!"){}
 };
 
-
+class InvalidArgument : public Exception{
+    public:
+    explicit InvalidEnumerator()
+        : Exception("РќРµРґРѕРїСѓСЃС‚РёРјС‹Р№ Р°СЂРіСѓРјРµРЅС‚!"){}
+};
 
 class EmptySequence : public Exception{
     public:
     explicit EmptySequence()
-        : Exception("Последовательность пуста!"){}
+        : Exception("РџРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РїСѓСЃС‚Р°!"){}
 };
