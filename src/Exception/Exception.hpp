@@ -48,9 +48,16 @@ class InvalidEnumerator : public Exception{
 
 class InvalidArgument : public Exception{
     public:
-    explicit InvalidEnumerator()
+    explicit InvalidArgument()
         : Exception("Недопустимый аргумент!"){}
 };
+
+class InvalidBitSequenceLength : public Exception{
+    public:
+    explicit InvalidBitSequenceLength()
+        : Exception("Длины битовых последовательностей должны быть равны!"){}
+};
+
 
 class EmptySequence : public Exception{
     public:

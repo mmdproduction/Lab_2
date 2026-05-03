@@ -21,8 +21,8 @@ class DynamicArray{
 
     void set(size_t index, T value);
 
-    T get(size_t index);
-    T operator[](size_t index);
+    T get(size_t index) const;
+    T operator[](size_t index) const;
     size_t getSize() const;
     
     void resize(size_t newSize);

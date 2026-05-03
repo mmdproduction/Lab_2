@@ -29,7 +29,7 @@ void Bit::setValue(bool val){ value = val ? true : false; }
 void Bit::flip(){value ^=1; }
 
 
-std::ostream& Bit::operator<<(std::ostream& os, const Bit& bit) {
+std::ostream& operator<<(std::ostream& os, const Bit& bit) {
         return os << (bit.value ? '1' : '0');
     }
 
@@ -47,7 +47,7 @@ uint8_t BitSequence::getBitMask(size_t bitOffset) {
 }
 
 
-BitSequence::provideCapacity(size_t newCapacity){
+void BitSequence::provideCapacity(size_t newCapacity){
     size_t newByteSize = (newCapacity + 7) / 8;
 
     if(newByteSize > data.getSize()) data.resize(newByteSize);
@@ -77,6 +77,118 @@ Bit BitSequence::getLast() const {
 }
 
 Bit BitSequence::get(size_t index) const {
-    if (index >= bitCount) throw InvalidIndex(index, bitCount);
+    if (index >= bitCount) throw IndexOutOfRange(index, bitCount);
     return getBit(index);
+}
+
+size_t BitSequence::getLength() const {
+    return bitCount;
+}
+
+Bit BitSequence::getBit(size_t index) const {
+    if (index >= bitCount) IndexOutOfRange(index, bitCount);
+    
+    
+    size_t byteIndex = getByteIndex(index);
+    size_t bitOffset = getBitOffset(index);
+    
+    return Bit((data.get(byteIndex) & getBitMask(bitOffset)) != 0);
+}
+
+Bit BitSequence::operator[](int index){
+    size_t byteIndex = getByteIndex(index);
+    size_t bitOffset = getBitOffset(index);
+    
+    return Bit((data.get(byteIndex) & getBitMask(bitOffset)) != 0);
+}
+
+void BitSequence::setBit(Bit value, size_t index){
+    if (index >= bitCount) IndexOutOfRange(index, bitCount);
+    
+    size_t byteIndex = getByteIndex(index);
+    size_t bitOffset = getBitOffset(index);
+    uint8_t mask = getBitMask(bitOffset);
+    uint8_t current = data.get(byteIndex);
+
+    if(value){
+        data.set(byteIndex, current | mask);
+    }
+    else{
+        data.set(byteIndex, current & ~mask);
+    }
+}
+
+
+void BitSequence::append(Bit value){
+    size_t newIndex = bitCount++;
+    provideCapacity(bitCount);
+
+    if(value) setBit(value, newIndex);
+}
+
+void BitSequence::prepend(Bit value){
+    BitSequence result(bitCount + 1);
+
+    for(size_t i = 0; i < bitCount; ++i){
+        result.setBit(getBit(i), i + 1);
+    }
+    result.setBit(value, 0);
+
+    *this = result;
+}
+
+BitSequence BitSequence::operator&(const BitSequence& other){
+    if(bitCount != other.bitCount) throw InvalidBitSequenceLength();
+    BitSequence result(bitCount);
+
+    for (size_t i = 0; i < data.getSize(); ++i) {
+        uint8_t val = data.get(i) & other.data.get(i);
+        result.data.set(i, val);
+    }
+
+    return result;
+}
+
+BitSequence BitSequence::operator|(const BitSequence& other){
+    if(bitCount != other.bitCount) throw InvalidBitSequenceLength();
+    BitSequence result(bitCount);
+
+    for (size_t i = 0; i < data.getSize(); ++i) {
+        uint8_t val = data.get(i) | other.data.get(i);
+        result.data.set(i, val);
+    }
+
+    return result;
+}
+
+BitSequence BitSequence::operator^(const BitSequence& other){
+    if(bitCount != other.bitCount) throw InvalidBitSequenceLength();
+    BitSequence result(bitCount);
+
+    for (size_t i = 0; i < data.getSize(); ++i) {
+        uint8_t val = data.get(i) ^ other.data.get(i);
+        result.data.set(i, val);
+    }
+
+    return result;
+}
+
+BitSequence BitSequence::operator~(){
+    BitSequence result(bitCount);
+
+    for (size_t i = 0; i < data.getSize(); ++i) {
+        uint8_t val = ~data.get(i);
+        result.data.set(i, val);
+    }
+
+    if(size_t validBits = bitCount % 8; validBits != 0){
+
+        uint8_t mask = static_cast<uint8_t>((1 << validBits) - 1);
+        size_t lastByte = result.data.getSize() - 1;
+        uint8_t current = result.data.get(lastByte);
+        result.data.set(lastByte, current & mask);
+
+    }
+
+    return result;
 }

@@ -13,7 +13,7 @@ bool SequenceEnumerator<T>::moveNext(){
 
 template<typename T>
 T SequenceEnumerator<T>::current(){
-    if (!isValid) throw std::runtime_error("Enumerator is invalid");
+    if (!isValid) throw InvalidEnumerator();
     return sequence->get(currentIndex);
 }
 

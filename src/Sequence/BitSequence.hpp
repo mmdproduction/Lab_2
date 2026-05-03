@@ -4,15 +4,14 @@
 #include <ostream>
 
 
-//FIXME recreate all
 class Bit{
     private:
     bool value;
     public:
     Bit() noexcept;
-    explicit Bit(bool val) noexcept;
-    explicit Bit(int val);
-    explicit Bit(char val);
+    Bit(bool val) noexcept;
+    Bit(int val);
+    Bit(char val);
 
     operator int() const;
  
@@ -31,20 +30,22 @@ class BitSequence: public Sequence<Bit>{
     private:
 
     DynamicArray<uint8_t> data;
-    size_t bitSize;
+    size_t bitCount;
 
     static size_t getByteIndex(size_t bitIndex);
     static size_t getBitOffset(size_t bitIndex);
     static uint8_t getBitMask(size_t bitOffset);
+    Bit getBit(size_t index) const;
+    void setBit(Bit value, size_t index);
 
     void provideCapacity(size_t newCapacity);
 
     public:
 
     BitSequence();
-    BitSequence(size_t size);
+    explicit BitSequence(size_t size);
     BitSequence(const BitSequence& other);
-    BitSequence(int num);
+    explicit BitSequence(int num);
     ~BitSequence() override = default;
 
     Bit getFirst() const override;
@@ -55,10 +56,10 @@ class BitSequence: public Sequence<Bit>{
     void prepend(Bit value) override;
     Bit operator[](int index) override;
 
-    BitSequence operator&(BitSequence& other);
-    BitSequence operator|(BitSequence& other);
-    BitSequence operator^(BitSequence& other);
+
+
+    BitSequence operator&(const BitSequence& other);
+    BitSequence operator|(const BitSequence& other);
+    BitSequence operator^(const BitSequence& other);
     BitSequence operator~();
-    BitSequence operator<<(BitSequence& other);
-    BitSequence operator>>(BitSequence& other);
 };
