@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SRC 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/)
+set(GUI 
+    ${CMAKE_CURRENT_SOURCE_DIR}/gui/)
 
 set(HEADER_DIR
     ${SRC}DynamicArray/
@@ -26,6 +28,7 @@ set(HEADER_FILES
     ${SRC}Sequence/BitSequence.hpp
     ${SRC}IEnumerator/LazyEnumerators/LazyEnumerators.hpp
     ${SRC}Sequence/LazySequence/SequenceView.hpp
+
 
 )
 
@@ -66,11 +69,17 @@ add_library(${PROJECT_NAME} STATIC
 
 
 add_subdirectory(libs/gtest)
+add_subdirectory(libs/OpenGUI)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${HEADER_DIR})
-add_executable(main ${SRC}/main.cpp)
+add_executable(main
+    ${GUI}main.cpp
+)
 
 target_link_libraries(main PRIVATE ${PROJECT_NAME})
+target_include_directories(main PUBLIC
+    ${GUI}
+)
 
 
 

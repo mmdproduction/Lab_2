@@ -1,6 +1,6 @@
 #pragma once
 #include <gtest/gtest.h>
-#include "LinkedList.hpp"
+#include "Sequence.hpp"
 #include <string>
 #include <cstring>
 
@@ -21,7 +21,7 @@ struct TestResultData {
 class GTestManager {
 private:
     
-    LinkedList<TestResultData> results;
+    ListSequence<TestResultData> results;
     
 
     int totalTests;
