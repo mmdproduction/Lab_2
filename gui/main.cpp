@@ -6,13 +6,18 @@
 #include"Sequence.hpp"
 #include"BitSequence.hpp"
 #include"TestPanel.hpp"
+#include"EventSystem.hpp"
 #include<iostream>
 
 
 int main(){
 
+
+    if (!Window::windowInit()) return -1;
+    
     Window window(1028, 720, "Test GUI");
-    window.windowInit();
+
+
     window.makeContextCurrent();
     window.setFramebufferSizeCallback();
 
@@ -26,20 +31,20 @@ int main(){
 
     EventSystem events;
 
-    setKeyCallback(window.getWindow());
-    setCharCallback(window.getWindow());
-    setMouseButtonCallback(window.getWindow());
-    setCursorPosCallback(window.getWindow());
-    setScrollCallback(window.getWindow());
+    events.setKeyCallback(window.getWindow());
+    events.setCharCallback(window.getWindow());
+    events.setMouseButtonCallback(window.getWindow());
+    events.setCursorPosCallback(window.getWindow());
+    events.setScrollCallback(window.getWindow());
 
 
 
-    TestPanel* testPanel = new TestPanel(20, 90, window.getWidth() - 40, window.getHeight() - 110);
+    TestPanel* testPanel = new TestPanel(0, 0, window.getWidth(), window.getHeight() - 40);
 
     float lastTime = glfwGetTime();
     while(!window.isWindowShouldClose()){
-        events.update();
 
+        events.update();
         testPanel->onEvent(events);
 
         double now = glfwGetTime();
@@ -51,11 +56,10 @@ int main(){
         testPanel->draw(render, textRender);
         
         window.swapBuffers();
-
-        testPanel->update();
+        testPanel->update(dt);
 
     }
-
+    delete testPanel;
     glfwTerminate();
     return 0;
 }

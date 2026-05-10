@@ -26,6 +26,7 @@ class DynamicArray{
     size_t getSize() const;
     
     void resize(size_t newSize);
+    void clear();
 
 
 };

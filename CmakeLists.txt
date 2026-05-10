@@ -16,6 +16,7 @@ set(HEADER_DIR
     ${SRC}Sequence/
     ${SRC}Sequence/LazySequence/
     ${SRC}IEnumerator/LazyEnumerators/
+    ${SRC}Test/
 )
 
 set(HEADER_FILES
@@ -28,6 +29,7 @@ set(HEADER_FILES
     ${SRC}Sequence/BitSequence.hpp
     ${SRC}IEnumerator/LazyEnumerators/LazyEnumerators.hpp
     ${SRC}Sequence/LazySequence/SequenceView.hpp
+    ${SRC}Test/TestRunner.hpp
 
 
 )
@@ -53,6 +55,7 @@ set(TEMPLATE_FILES
 
 set(SOURCE_FILES
     ${SRC}Sequence/BitSequence.cpp
+    ${SRC}Test/TestRunner.cpp
 )
 
 set(TEST_SOURCE_FILES 
@@ -72,13 +75,24 @@ add_subdirectory(libs/gtest)
 add_subdirectory(libs/OpenGUI)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${HEADER_DIR})
+
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    gtest
+ )
+
+
 add_executable(main
     ${GUI}main.cpp
+    ${TEST_SOURCE_FILES}
 )
 
-target_link_libraries(main PRIVATE ${PROJECT_NAME})
+target_link_libraries(main PRIVATE
+    ${PROJECT_NAME}
+    OpenGUI
+ )
 target_include_directories(main PUBLIC
     ${GUI}
+    ${PROJECT_NAME}
 )
 
 

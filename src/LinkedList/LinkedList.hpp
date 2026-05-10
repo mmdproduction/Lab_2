@@ -25,14 +25,15 @@ class LinkedList{
     explicit LinkedList(const std::initializer_list<T>& list);
     ~LinkedList();
 
-    T getFirst();
-    T getLast();
-    T get(int index);
-    T operator[](int index);
-
+    T getFirst() const;
+    T getLast() const;
+    T get(int index) const;
+    T operator[](int index) const;
+    LinkedList<T>& operator=(const LinkedList<T>& other);
+    
     LinkedList<T>* getSubList(int startIndex, int endIndex);
 
-    size_t getLength();
+    size_t getLength() const;
 
     void append(T item);
     void prepend(T item);

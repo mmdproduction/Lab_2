@@ -104,8 +104,19 @@ void DynamicArray<T>::resize(size_t newSize){
             newData[i] = data[i];
         }
     }
+    if (data != nullptr) {
+        delete[] data;
+    }
+
     size = newSize;
-    T* delData = data;
     data = newData;
-    delete[] delData;
+}
+
+template<typename T>
+void DynamicArray<T>::clear(){
+    if (data != nullptr) {
+        delete[] data; 
+        data = nullptr;
+    }
+    size = 0;
 }

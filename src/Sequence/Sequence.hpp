@@ -34,6 +34,8 @@ class Sequence: public IEnumerable<T>{
 
     IEnumerator<T>* getEnumerator() const override;
 
+    bool isEmpty(){ return 0 == getLength(); }
+
 };
 
 
@@ -63,6 +65,7 @@ class ArraySequence : public Sequence<T>{
     size_t getLength() const override;
     void append(T value) override;
     void prepend(T value) override;
+    void clear();
 };
 
 template<typename T>

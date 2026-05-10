@@ -28,16 +28,23 @@ LinkedList<T>::LinkedList(const std::initializer_list<T>& list): size(0), head(n
 
 template<typename T>
 LinkedList<T>::~LinkedList() {
+    
+    if (head == nullptr) return;
+
     Node* current = head;
-    while(current != nullptr) {
+    while (current != nullptr) {
         Node* next = current->next;
         delete current;
         current = next;
     }
+
+    head = nullptr;
+    tail = nullptr;
+    size = 0;
 }
 
 template<typename T>
-T LinkedList<T>::getFirst(){
+T LinkedList<T>::getFirst() const{
     if(size == 0){ 
         throw IndexOutOfRange(0, size);
     }
@@ -45,7 +52,7 @@ T LinkedList<T>::getFirst(){
 }
 
 template<typename T>
-T LinkedList<T>::getLast(){
+T LinkedList<T>::getLast() const{
     if(size == 0){
         throw IndexOutOfRange(0, size); 
     }
@@ -53,7 +60,7 @@ T LinkedList<T>::getLast(){
 }
 
 template<typename T>
-T LinkedList<T>::get(int index){
+T LinkedList<T>::get(int index) const {
     if(index < 0 || index >= size){
         throw IndexOutOfRange(index, size); 
     }
@@ -91,7 +98,7 @@ LinkedList<T>* LinkedList<T>::getSubList(int startIndex, int endIndex){
 }
 
 template<typename T>
-size_t LinkedList<T>::getLength(){
+size_t LinkedList<T>::getLength() const{
     return size;
 }
 
@@ -100,7 +107,7 @@ void LinkedList<T>::append(T item){
     Node* node = new Node(item);
     if(head == nullptr){
         head = node;
-        tail = head;
+        tail = node;
     }
     else{
         tail->next = node;
@@ -165,10 +172,21 @@ LinkedList<T>* LinkedList<T>::concat(LinkedList<T>& list){
 }
 
 template<typename T>
-T LinkedList<T>::operator[](int index){
+T LinkedList<T>::operator[](int index) const{
     Node* tmp = head;
     for(size_t i = 0; i < index; ++i){
         tmp = tmp->next;
     }
     return tmp->data;
+}
+
+template<typename T>
+LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other) {
+    if (this != &other) {
+        LinkedList temp(other);
+        std::swap(head, temp.head);
+        std::swap(tail, temp.tail);
+        std::swap(size, temp.size);
+    }
+    return *this;
 }

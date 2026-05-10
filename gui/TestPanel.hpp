@@ -1,5 +1,5 @@
 #pragma once
-#include "TestRunner.hpp"
+#include"TestRunner.hpp"
 #include"UI.hpp"
 #include "Window.hpp"
 #include"EventSystem.hpp"
@@ -30,78 +30,108 @@ public:
         initUI();
     }
 
-    void initUI() {
-        float btnW = 120, btnH = 35;
-        
-        btnRunAll = new UIButton(x + 20, y + 10, btnW, btnH, {0.3f, 0.7f, 0.3f, 1.0f},  "Run All Tests", {1, 1, 1});
-        btnRunSelected = new UIButton(x + 150, y + 10, btnW, btnH, {0.3f, 0.6f, 0.8f, 1.0f}, "Run Selected", {1, 1, 1});
-        btnClear = new UIButton(x + w - btnW - 20, y + 10, btnW, btnH, {0.6f, 0.3f, 0.3f, 1.0f}, "Clear", {1, 1, 1});
-        
-        inputFilter = new UIInputText(x + 350, y + 12, 200, btnH - 4, "Filter tests...");
+void initUI() {
+    float btnW = 160, btnH = 35;
+    float pad = 20;              
+    float topY = y + h - 10;     
 
-        resultList = new UIList(x + 20, y + 60, w - 40, h - 80);
-        resultList->setShowScrollbar(true);
-    }
+    btnRunAll = new UIButton(
+        x + pad + btnW / 2.0f,               
+        topY - btnH / 2.0f,                      
+        btnW, btnH, 
+        {0.3f, 0.7f, 0.3f, 1.0f}, 
+        "Запустить все", 
+        {1, 1, 1}
+    );
+
+
+    btnClear = new UIButton(
+        x + w - pad - btnW / 2.0f,    
+        topY - btnH / 2.0f, 
+        btnW, btnH, 
+        {0.6f, 0.3f, 0.3f, 1.0f}, 
+        "Очистить", 
+        {1, 1, 1}
+    );
+
+    float listW = w - 40;
+    float listH = h - 80;  
+    float listBottomY = y + 20; 
+
+    resultList = new UIList(
+        x + 20 + listW / 2.0f,                  
+        listBottomY + listH / 2.0f,
+        listW, listH
+    );
+    resultList->setShowScrollbar(true);
+}
 
     void update(float dt) {
         btnRunAll->update(dt);
-        btnRunSelected->update(dt);
-        btnClear->update(dt);
-        inputFilter->update(dt);
-
-        if (btnRunAll->isClicked() && !runner.getIsRunning()) {
-            runner.run();
-            refreshList();
-        }
-        
-        if (btnRunSelected->isClicked() && !runner.getIsRunning()) {
-            const char* filter = inputFilter->getText();
-            runner.run(filter);
-            refreshList();
-        }
-
-        if (btnClear->isClicked()) {
-            runner.run();
-        }
+        btnClear->update(dt);    
     }
 
     void refreshList() {
-        for(size_t i = 0; i < resultList->getItemCount; ++i){
-            resultList->removeItem();
+        size_t count = resultList->getItemCount();
+        for (size_t i = count; i > 0; --i) {
+            resultList->removeItem(i - 1);
         }
-        const auto& res = runner.getResults();
+        auto& res = runner.getResults();
+        if (res.getLength() == 0) return; 
+
         for(const auto& test : res){
-            char[512] line;
-            if(test.pass) sprintf(line, "[PASS] %s : %0.1f ms", test.name, test.time_ms)
-            else std::sprintf(line, "[FAIL] %s: %s", r.name, r.message);
+            char line[512];
+            if(test.passed) sprintf(line, "[PASS] %s : %0.1f ms", test.name, test.time_ms);
+            else std::sprintf(line, "[FAIL] %s: %s", test.name, test.message);
             resultList->addItem(std::string(line));
         }
         
     }
 
+    void clearList(){
+        size_t count = resultList->getItemCount();
+        for (size_t i = count; i > 0; --i) {
+            resultList->removeItem(i - 1);
+        }
+    }
+
     void draw(Renderer& renderer, TextRenderer& textRenderer) const {
+
+        
+
         renderer.begin();
         textRenderer.begin();
 
-        renderer.draw(x, y, w, h, COLOR_BG);
-        textRenderer.drawText("Unit Tests", x + 20, y - 25, 1, glm::vec3(0.9f));
+        
+        renderer.draw({x, y}, {w, h}, COLOR_BG);
+        float titleY = y + h - 35;
+        textRenderer.drawText("Модульные тесты", x + 350, titleY, 1, glm::vec3(0.9f));
 
         btnRunAll->draw(renderer, textRenderer);
-        btnRunSelected->draw(renderer, textRenderer);
         btnClear->draw(renderer, textRenderer);
-        inputFilter->draw(renderer, textRenderer);
+
         renderer.end();
         textRenderer.end();
-
+        
         resultList->draw(renderer, textRenderer);
+        
+
     }
 
     void onEvent(EventSystem& events){
         btnRunAll->onEvent(events);
-        btnRunSelected->onEvent(events);
         btnClear->onEvent(events);
-        inputFilter->onEvent(events);
-
+        
         resultList->onEvent(events);
+
+        if (btnRunAll->isPressed && !runner.getIsRunning()) {
+            runner.run();
+            refreshList();
+        }
+        
+
+        if (btnClear->isPressed) {
+            clearList();
+        }
     }
 };

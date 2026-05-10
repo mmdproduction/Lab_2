@@ -65,3 +65,10 @@ void ArraySequence<T>::prepend(T value){
 
 template<typename T>
 ArraySequence<T>::~ArraySequence() { delete array; }
+
+template<typename T>
+void ArraySequence<T>::clear(){
+    array->clear();
+    size = 0;
+    capacity = 0;
+}
