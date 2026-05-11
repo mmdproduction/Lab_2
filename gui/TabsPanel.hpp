@@ -13,6 +13,7 @@ class TabsPanel{
     private:
 
     ListSequence<UIButton*> buttons;
+    size_t indexActive = 0;
 
     float x, y, w, h;
     float btnW;
@@ -24,13 +25,15 @@ class TabsPanel{
 
     TabsPanel(float x_, float y_, float w_, float h_): x(x_), y(y_), w(w_), h(h_), btnW(w_ / 3) {}
     void addTab(std::string text){
-        buttons.append(new UIButton(x + buttons.getLength() * btnW + btnW / 2, y + h/2, btnW, h, COLOR_PANEL, text, glm::vec3(1.0f)));
+        buttons.append(new UIButton(x + buttons.getLength() * (btnW + 1) + btnW / 2, y + h/2, btnW, h, COLOR_PANEL, text, glm::vec3(1.0f)));
     }
 
     void onEvent(EventSystem& events){
-        for(auto* button : buttons){
-            button->onEvent(events);
+        for(size_t i = 0; i < buttons.getLength(); ++i){
+            buttons[i]->onEvent(events);
+            if(buttons[i]->isPressed) indexActive = i;
         }
+        buttons[indexActive]->isPressed = true;
     }
 
     void update(float dt){
@@ -52,4 +55,12 @@ class TabsPanel{
         textRender.end();
     }
 
+    size_t getActive(){ return indexActive; }
+
+    ~TabsPanel(){
+        for(auto* button : buttons){
+            delete button;
+        }
+    }
 };
+

@@ -12,9 +12,8 @@
 
 
 int main(){
+    
     setlocale(LC_ALL, ".UTF8");
-
-
     if (!Window::windowInit()) return -1;
     
     Window window(1028, 720, "Test GUI");
@@ -39,18 +38,23 @@ int main(){
     events.setCursorPosCallback(window.getWindow());
     events.setScrollCallback(window.getWindow());
 
-    ListSequence<int> list;
-    int k = list.get(5);
 
     TestPanel* testPanel = new TestPanel(0, 0, window.getWidth(), window.getHeight() - 40);
     TabsPanel* tabsPanel = new TabsPanel(0, window.getHeight() - 40, window.getWidth(), 40);
+
+    tabsPanel->addTab("Последовательность");
+    tabsPanel->addTab("Битовая послед.");
     tabsPanel->addTab("Тесты");
+
     float lastTime = glfwGetTime();
     while(!window.isWindowShouldClose()){
 
         events.update();
-        testPanel->onEvent(events);
         tabsPanel->onEvent(events);
+
+        if(tabsPanel->getActive() == 2){
+            testPanel->onEvent(events);
+        }
 
         double now = glfwGetTime();
         float dt = now - lastTime;
@@ -60,11 +64,14 @@ int main(){
 
 
         tabsPanel->draw(render, textRender);
-        testPanel->draw(render, textRender);
-        
+        if(tabsPanel->getActive() == 2){
+            testPanel->draw(render, textRender);
+        }
         
         window.swapBuffers();
-        testPanel->update(dt);
+        if(tabsPanel->getActive() == 2){
+            testPanel->update(dt);
+        }
         tabsPanel->update(dt);
 
     }
