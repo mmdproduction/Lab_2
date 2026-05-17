@@ -7,12 +7,13 @@
 #include"Sequence.hpp"
 #include"BitSequence.hpp"
 #include"TestPanel.hpp"
+#include"SequencePanel.hpp"
 #include"TabsPanel.hpp"
 #include<iostream>
 
 
 int main(){
-    
+
     setlocale(LC_ALL, ".UTF8");
     if (!Window::windowInit()) return -1;
     
@@ -30,6 +31,8 @@ int main(){
         std::cerr << "ERROR::FONT::BUILD_FAIL";
     }
 
+
+
     EventSystem events;
 
     events.setKeyCallback(window.getWindow());
@@ -40,6 +43,7 @@ int main(){
 
 
     TestPanel* testPanel = new TestPanel(0, 0, window.getWidth(), window.getHeight() - 40);
+    SequencePanel* sequencePanel = new SequencePanel(0, 0, window.getWidth(), window.getHeight() - 40);
     TabsPanel* tabsPanel = new TabsPanel(0, window.getHeight() - 40, window.getWidth(), 40);
 
     tabsPanel->addTab("Последовательность");
@@ -52,6 +56,9 @@ int main(){
         events.update();
         tabsPanel->onEvent(events);
 
+        if(tabsPanel->getActive() == 0){
+            sequencePanel->onEvent(events);
+        }
         if(tabsPanel->getActive() == 2){
             testPanel->onEvent(events);
         }
@@ -67,10 +74,16 @@ int main(){
         if(tabsPanel->getActive() == 2){
             testPanel->draw(render, textRender);
         }
+        if(tabsPanel->getActive() == 0){
+            sequencePanel->draw(render, textRender);
+        }
         
         window.swapBuffers();
         if(tabsPanel->getActive() == 2){
             testPanel->update(dt);
+        }
+        if(tabsPanel->getActive() == 0){
+            sequencePanel->update(dt);
         }
         tabsPanel->update(dt);
 

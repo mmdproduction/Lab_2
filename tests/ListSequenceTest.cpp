@@ -176,3 +176,15 @@ TEST(ListSequenceTest, StringGetFirstAndgetLast) {
     EXPECT_EQ(arraySeq.getLast(), "23");
     
 }
+
+TEST(ListSequenceTest, mapIntTest) {
+    ListSequence<int> list;
+    list.append(42);
+    list.append(100);
+
+    auto* mList = list.map<int>([](int x){ return 2*x;});
+
+    
+    EXPECT_EQ(mList->getFirst(), 84);
+    EXPECT_EQ(mList->get(1), 200);
+}

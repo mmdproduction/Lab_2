@@ -19,12 +19,12 @@ class Exception : public std::exception {
 class IndexOutOfRange : public Exception{
     public:
     explicit IndexOutOfRange(int index, int size, const std::source_location& loc = std::source_location::current())
-        : Exception(loc.function_name(), loc.file_name(), loc.line(), "Выход за границы! Индекс: "
-        + std::to_string(index) + ", Размер: " +  std::to_string(size)){}
+        : Exception(loc.function_name(), loc.file_name(), loc.line(), 
+        std::format("Выход за границы! Индекс: {}, Размер: {}", index, size)){}
 
         explicit IndexOutOfRange(int index,  const std::source_location& loc = std::source_location::current())
-        : Exception(loc.function_name(), loc.file_name(), loc.line(), "Выход за границы! Индекс: "
-        + std::to_string(index)){}
+        : Exception(loc.function_name(), loc.file_name(), loc.line(), std::format("Выход за границы! Индекс: {}",
+        index)){}
 
         explicit IndexOutOfRange( const std::source_location& loc = std::source_location::current())
         : Exception(loc.function_name(), loc.file_name(), loc.line(), "Неверный индекс!"){}

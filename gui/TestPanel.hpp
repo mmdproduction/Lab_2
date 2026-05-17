@@ -81,7 +81,7 @@ void initUI() {
 
         for(const auto& test : res){
             char line[512];
-            if(test.passed) sprintf(line, "[PASS] %s : %0.1f ms", test.name, test.time_ms);
+            if(test.passed) sprintf(line, "[OK] %s : %0.1f ms", test.name, test.time_ms);
             else std::sprintf(line, "[FAIL] %s: %s", test.name, test.message);
             resultList->addItem(std::string(line));
         }

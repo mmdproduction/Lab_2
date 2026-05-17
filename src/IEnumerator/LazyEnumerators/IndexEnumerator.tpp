@@ -13,6 +13,8 @@ bool IndexEnumerator<T>::moveNext(){
     {
         if(currentIndex == targetIndex){
             currentValue = source->current();
+            found = true;
+            return true;
         }
         ++currentIndex;
     }
