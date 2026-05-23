@@ -54,6 +54,10 @@ class BitSequence: public Sequence<Bit>{
     size_t getLength() const override;
     void append(Bit value) override;
     void prepend(Bit value) override;
+    void set(Bit value, size_t index) override;
+
+    void popAt(size_t index) override;
+
     Bit operator[](int index) override;
 
 

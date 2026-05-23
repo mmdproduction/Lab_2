@@ -20,6 +20,20 @@ TEST(LinkedListTest, ConstructorWithInitializeList){
     EXPECT_EQ(list.get(3), 4);
 }
 
+TEST(LinkedListTest, SetAndGet){
+    LinkedList<int> list({1, 2, 3, 4});
+    list.set(12, 3);
+    EXPECT_EQ(list.getLength(), 4);
+    EXPECT_EQ(list.get(3), 12);
+}
+
+TEST(LinkedListTest, PopAndGet){
+    LinkedList<int> list({1, 2, 3, 4});
+    list.popAt(2);
+    EXPECT_EQ(list.getLength(), 3);
+    EXPECT_EQ(list.get(2), 4);
+}
+
 TEST(LinkedListTest, AppendAndGet) {
     LinkedList<int> list;
     list.append(42);

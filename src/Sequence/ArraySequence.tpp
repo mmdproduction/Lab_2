@@ -63,6 +63,21 @@ void ArraySequence<T>::prepend(T value){
     size++;
 }
 
+template <typename T>
+void ArraySequence<T>::set(T value, size_t index){
+    array->set(index, value);
+}
+
+
+template <typename T>
+void ArraySequence<T>::popAt(size_t index){
+    for(size_t i = index; i < size - 1; ++i){
+        array->set(i, get(i + 1));
+    }
+    size--;
+    array->resize(size);
+}
+
 template<typename T>
 ArraySequence<T>::~ArraySequence() { delete array; }
 

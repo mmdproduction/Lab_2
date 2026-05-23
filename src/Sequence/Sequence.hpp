@@ -12,12 +12,18 @@ template <typename T>
 class Sequence: public IEnumerable<T>{
     public:
     virtual ~Sequence() = default;
+
     virtual T getFirst() const = 0;
     virtual T getLast() const = 0;
     virtual T get(size_t index) const = 0;
     virtual size_t getLength() const = 0;
+
     virtual void append(T value) = 0;
     virtual void prepend(T value) = 0;
+    virtual void set(T value, size_t index) = 0;
+
+    virtual void popAt(size_t index) = 0;
+
     std::unique_ptr<Sequence<T>> getSubSequence(size_t startIndex, size_t endIndex) const;
     virtual T operator[](int index) = 0;
 
@@ -25,6 +31,8 @@ class Sequence: public IEnumerable<T>{
     std::unique_ptr<Sequence<U>> map(std::function<U(const T&)> mapper) const;
     std::unique_ptr<Sequence<T>> where(std::function<bool(const T&)> filter) const;
     std::unique_ptr<Sequence<T>> concat(Sequence<T>& list) const;
+
+    std::unique_ptr<Sequence<T>> operator+(Sequence<T>& list) const;
 
     template<typename U, typename F>
     U reduce(F&& reducer, U initial) const;
@@ -66,6 +74,10 @@ class ArraySequence : public Sequence<T>{
     size_t getLength() const override;
     void append(T value) override;
     void prepend(T value) override;
+    void set(T value, size_t index) override;
+
+    void popAt(size_t index) override;
+
     void clear();
 };
 
@@ -87,9 +99,13 @@ class ListSequence : public Sequence<T>{
     T getLast() const override;
     T get(size_t index) const override;
     T operator[](int index) override;
+
     size_t getLength() const override;
     void append(T value) override;
     void prepend(T value) override;
+    void set(T value, size_t index) override;
+
+    void popAt(size_t index) override;
 };
 #include"SequenceView.hpp"
 

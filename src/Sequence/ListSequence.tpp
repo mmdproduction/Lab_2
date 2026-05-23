@@ -57,3 +57,14 @@ template<typename T>
 T ListSequence<T>::operator[](int index){
     return (*list)[index];
 }
+
+template <typename T>
+void ListSequence<T>::set(T value, size_t index){
+    list->set(value, index);
+}
+
+
+template <typename T>
+void ListSequence<T>::popAt(size_t index){
+    list->popAt(index);
+}

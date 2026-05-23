@@ -36,6 +36,11 @@ std::unique_ptr<Sequence<T>> Sequence<T>::concat(Sequence<T>& other) const {
     }
 
 template<typename T>
+std::unique_ptr<Sequence<T>> Sequence<T>::operator+(Sequence<T>& other) const {
+        return std::make_unique<ConcatSequenceView<T>>(*this, other);
+    }
+
+template<typename T>
 std::unique_ptr<Sequence<T>> Sequence<T>::getSubSequence(size_t startIndex, size_t endIndex) const {
         return std::make_unique<SubSequenceView<T>>(*this, startIndex, endIndex);
     }

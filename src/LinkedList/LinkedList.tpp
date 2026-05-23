@@ -156,6 +156,46 @@ void LinkedList<T>::insertAt(T item, int index){
 }
 
 template<typename T>
+void LinkedList<T>::set(T item, size_t index){
+    if(index < 0 || index >= size){
+        throw IndexOutOfRange(index, size);
+    }
+    
+    if(index == 0){
+        head->data = item;
+        return;
+    }
+
+    Node* tpm = head;
+    for(size_t i = 0; i < index; ++i){
+        tpm = tpm->next;
+    }
+    tpm->data = item;
+}
+
+template<typename T>
+void LinkedList<T>::popAt(size_t index){
+    if(index >= size){
+        throw IndexOutOfRange(index, size);
+    }
+    if(index == 0){
+        Node* tpm = head;
+        head = head->next;
+        delete tpm;
+        return;
+    }
+
+    Node* tpm = head;
+    for(size_t i = 0; i < index - 1; ++i){
+        tpm = tpm->next;
+    }
+    Node* del = tpm->next;
+    tpm->next = tpm->next->next;
+    delete del;
+    size--;
+}
+
+template<typename T>
 LinkedList<T>* LinkedList<T>::concat(LinkedList<T>& list){
     LinkedList<T>* concatList = new LinkedList();
     Node* tpm = head;

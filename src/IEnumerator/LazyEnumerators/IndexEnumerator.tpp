@@ -12,6 +12,7 @@ bool IndexEnumerator<T>::moveNext(){
     while (source->moveNext())
     {
         if(currentIndex == targetIndex){
+            isValid = true;
             currentValue = source->current();
             found = true;
             return true;

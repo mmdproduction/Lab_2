@@ -31,6 +31,9 @@ public:
 
     void append(TargetType) override { throw ReadOnlyError(); } 
     void prepend(TargetType) override { throw ReadOnlyError(); }
+    void set(TargetType value, size_t index) override { throw ReadOnlyError(); }
+
+    void popAt(size_t index) override { throw ReadOnlyError(); };
 
     TargetType operator[](int index) override { return get(index); }
 
@@ -58,6 +61,9 @@ public:
 
     void append(T) override { throw ReadOnlyError(); } 
     void prepend(T) override { throw ReadOnlyError(); } 
+    void set(T value, size_t index) override { throw ReadOnlyError(); }
+
+    void popAt(size_t index) override { throw ReadOnlyError(); }
 
     T operator[](int index) override { return get(index); }
     ~FilterSequenceView() override = default;
@@ -81,6 +87,9 @@ public:
 
     void append(T) override { throw ReadOnlyError(); } 
     void prepend(T) override { throw ReadOnlyError(); }
+    void set(T value, size_t index) override { throw ReadOnlyError(); }
+
+    void popAt(size_t index) override { throw ReadOnlyError(); }
 
 
     T operator[](int index) override { return get(index); }
@@ -105,6 +114,9 @@ public:
 
     void append(T) override { throw ReadOnlyError(); } 
     void prepend(T) override { throw ReadOnlyError(); }
+    void set(T value, size_t index) override { throw ReadOnlyError(); }
+
+    void popAt(size_t index) override { throw ReadOnlyError(); }
 
     T operator[](int index) override { return get(index); }
     ~SubSequenceView() override = default;
