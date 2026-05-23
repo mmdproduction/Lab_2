@@ -12,9 +12,7 @@ private:
     GTestManager runner;
     
     UIButton* btnRunAll;
-    UIButton* btnRunSelected;
     UIButton* btnClear;
-    UIInputText* inputFilter;
     UIList* resultList;
 
     float x, y, w, h;

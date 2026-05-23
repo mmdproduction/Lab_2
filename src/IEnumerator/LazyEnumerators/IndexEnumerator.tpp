@@ -24,7 +24,7 @@ bool IndexEnumerator<T>::moveNext(){
 
 template<typename T>
 T IndexEnumerator<T>::current(){
-    if (!isValid) InvalidEnumerator();
+    if (!isValid) throw InvalidEnumerator();
     return currentValue;
 }
 

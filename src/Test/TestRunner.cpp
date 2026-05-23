@@ -34,6 +34,9 @@ void GTestManager::ResultPrinter::OnTestEnd(const ::testing::TestInfo& test_info
     g_ActiveManager->results.append(data);
     g_ActiveManager->totalTests++;
     g_ActiveManager->totalTimeMs += data.time_ms;
+    
+    if (g_ActiveManager->onTestFinished)
+        g_ActiveManager->onTestFinished(data);
 }
 
 GTestManager::GTestManager() 

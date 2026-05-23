@@ -36,16 +36,10 @@ class SequencePanel{
     UIButton btnAppend;
 
     UIInputText inputSequence;
+    UIInputText sequenceElem;
     UIList sequenceInfo;
 
     ArraySequence<Sequence<int>*> sequences;
-
-    int mapX2(int x){ return x*2;}
-    int mapMod2(int x){return x % 2; }
-    int min(int avg, int x){return avg <= x ? avg : x; }
-    int max(int avg, int x){return avg >= x ? avg : x; }
-
-    
 
     
 public:
@@ -61,9 +55,9 @@ public:
         btnMax(x_ + pad + (btnW + 20) / 2, topY - 320 - 3 * pad - 2 * btnH, btnW + 40, btnH + 20, COLOR_PANEL, "MAX", glm::vec3(1.0f)),
         btnAppend(x_ + pad + (btnW + 20) / 2, topY - 220 - 2 * pad - 1 * btnH, btnW + 40, btnH + 20, COLOR_PANEL, "Добавить", glm::vec3(1.0f)),
         btnMin(x_ + 3 * pad + (btnW + 20) * 3 / 2, topY - 320 - 3 * pad - 2 * btnH, btnW + 40, btnH + 20, COLOR_PANEL, "MIN", glm::vec3(1.0f)),
-        inputSequence(x_ + pad + (btnW + 140) / 2, topY - 120 - pad - btnH, btnW + 140, btnH + 20, "Введите число: 1")
+        inputSequence(x_ + pad + (btnW + 140) / 2, topY - 120 - pad - btnH, btnW + 140, btnH + 20, "Введите число: 1"),
+        sequenceElem(x_ + pad + (btnW + 140) / 2, topY - 460 - pad - btnH, btnW + 140, btnH + 20, "")
     {
-       
         sequenceInfo.setShowScrollbar(true);
     }
     
@@ -96,6 +90,7 @@ public:
         textRender.end();
 
         inputSequence.draw(render, textRender);
+        sequenceElem.draw(render, textRender);
         listSequence.draw(render, textRender);
         listSecondSequence.draw(render, textRender);
         sequenceInfo.draw(render, textRender);
@@ -106,18 +101,31 @@ public:
     }
     void onEvent(EventSystem& events){
 
+        if(!listSequence.isExpanded()){
         btnAddSequence.onEvent(events);
         
         btnConcat.onEvent(events);
         btnMapX2.onEvent(events);
         btnMax.onEvent(events);
         btnMin.onEvent(events);
+
+        
         btnAppend.onEvent(events);
         inputSequence.onEvent(events);
+        }
 
 
-        activeIndex = listSequence.getSelectedItem();
+        
         secondIndex = listSecondSequence.getSelectedItem();
+        listSequence.setOnItemClicked([this](int){
+            activeIndex = listSequence.getSelectedItem();
+            if( activeIndex >= sequences.getLength() ){
+                activeIndex = 0;
+            }
+            if(sequences[activeIndex]->getLength() != 0) infoUpdate();
+            listSequence.setExpanded(false);
+            
+        });
 
         listSequence.onEvent(events);
         listSecondSequence.onEvent(events);
@@ -127,8 +135,12 @@ public:
         if(btnAddSequence.isPressed){
             sequences.append(new ArraySequence<int>());
             refreshList();
+            listSequence.setSelectedItem(sequences.getLength() - 1);
+            activeIndex = sequences.getLength() - 1;
+            infoUpdate();
+            
         }
-        
+
         if(btnAppend.isPressed && !(inputSequence.getText().empty()) && sequences.getLength() != 0){
             if(activeIndex >= sequences.getLength()) {
                 activeIndex = 0; 
@@ -137,7 +149,48 @@ public:
             auto text = inputSequence.getText();
             inputSequence.setText("");
             sequences[activeIndex]->append(std::stoi(convert.to_bytes(text)));
+            infoUpdate();
         }
+
+        if(btnMin.isPressed && sequences.getLength() != 0){
+            if(activeIndex >= sequences.getLength()) {
+                activeIndex = 0; 
+            }
+            if(sequences[activeIndex]->getLength() > 0){
+                auto elem = sequences[activeIndex]->reduce([](int avg, int x){return avg <= x ? avg : x; }, INT_MAX);
+                sequenceElem.setText(std::to_string(elem));
+            }
+        }
+        if(btnMax.isPressed && sequences.getLength() != 0){
+            if(activeIndex >= sequences.getLength()) {
+                activeIndex = 0; 
+            }
+            if(sequences[activeIndex]->getLength() > 0){
+                auto elem = sequences[activeIndex]->reduce([](int avg, int x){return avg >= x ? avg : x; }, INT_MIN);
+                sequenceElem.setText(std::to_string(elem));
+            }
+        }
+
+        if(btnMapX2.isPressed && sequences.getLength() != 0){
+            if(activeIndex >= sequences.getLength()) {
+                activeIndex = 0; 
+            }
+            sequences.append(sequences[activeIndex]->map<int>([](int x){ return x*2;}).release());
+            refreshList();
+            infoUpdate();
+        }
+        if(btnConcat.isPressed && sequences.getLength() != 0){
+            if(activeIndex >= sequences.getLength()) {
+                activeIndex = 0; 
+            }
+            if(secondIndex >= sequences.getLength()) {
+                secondIndex = 0; 
+            }
+            sequences.append(sequences[activeIndex]->concat(*sequences[secondIndex]).release());
+            refreshList();
+            infoUpdate();
+        }
+    
     }
 
     void update(float dt){
@@ -157,8 +210,7 @@ public:
         if(sequences.getLength() != 0){
             if(activeIndex >= sequences.getLength()) {
                 activeIndex = 0; 
-            }
-            infoUpdate();
+            }  
         }
     }
 

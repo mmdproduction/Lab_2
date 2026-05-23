@@ -19,6 +19,6 @@ T SequenceEnumerator<T>::current(){
 
 template<typename T>
 void SequenceEnumerator<T>::reset(){
-    currentIndex = 0;
+    currentIndex = -1;
     isValid = sequence->getLength() > 0;
 }

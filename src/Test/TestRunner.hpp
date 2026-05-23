@@ -41,6 +41,7 @@ private:
 public:
     GTestManager();
 
+    std::function<void(const TestResultData&)> onTestFinished;
     bool run(const char* filter = nullptr);
     
     ArraySequence<TestResultData>& getResults() { return results; }

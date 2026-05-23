@@ -22,22 +22,22 @@ T ArraySequence<T>::operator[](int index){
 
 template<typename T>
 template<typename U>
-Sequence<U>* Sequence<T>::map(std::function<U(const T&)> mapper) const{
-    return new MapSequenceView<U, T>(*this, mapper);
+std::unique_ptr<Sequence<U>> Sequence<T>::map(std::function<U(const T&)> mapper) const{
+    return std::make_unique<MapSequenceView<U, T>>(*this, mapper);
 }
 template<typename T>
-Sequence<T>* Sequence<T>::where(std::function<bool(const T&)> filter) const{
-    return new FilterSequenceView<T>(*this, filter);
+std::unique_ptr<Sequence<T>> Sequence<T>::where(std::function<bool(const T&)> filter) const{
+    return std::make_unique<FilterSequenceView<T>>(*this, filter);
 }
 
 template<typename T>
-Sequence<T>* Sequence<T>::concat(Sequence<T>& other) const {
-        return new ConcatSequenceView<T>(*this, other);
+std::unique_ptr<Sequence<T>> Sequence<T>::concat(Sequence<T>& other) const {
+        return std::make_unique<ConcatSequenceView<T>>(*this, other);
     }
 
 template<typename T>
-Sequence<T>* Sequence<T>::getSubSequence(size_t startIndex, size_t endIndex) const {
-        return new SubSequenceView<T>(*this, startIndex, endIndex);
+std::unique_ptr<Sequence<T>> Sequence<T>::getSubSequence(size_t startIndex, size_t endIndex) const {
+        return std::make_unique<SubSequenceView<T>>(*this, startIndex, endIndex);
     }
 
 template<typename T>

@@ -44,7 +44,7 @@ private:
     std::function<bool(const T&)> filter;
 
 public:
-    FilterSequenceView(const Sequence<T>& src, std::function<T(const T&)> filtFunc);
+    FilterSequenceView(const Sequence<T>& src, std::function<bool(const T&)> filtFunc);
 
     IEnumerator<T>* getEnumerator() const override;
 

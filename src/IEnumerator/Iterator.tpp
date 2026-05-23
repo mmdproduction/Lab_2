@@ -20,20 +20,10 @@ Iterator<T>& Iterator<T>::operator++(){
     return *this;
 }
 
-template<typename T>
-bool Iterator<T>::operator!=(const Iterator& other) const {
-
-        if (isEnd && other.isEnd) return false;
-        if (isEnd || other.isEnd) return true;
-
-        return true;
-    }
 
 template<typename T>
-bool Iterator<T>::operator==(const Iterator& other) const {
+bool Iterator<T>::operator==(const Iterator& other) const { return isEnd == other.isEnd; }
 
-        if (isEnd == other.isEnd) return true;
-        if (isEnd != other.isEnd) return false;
 
-        return false;
-    }
+template<typename T>
+bool Iterator<T>::operator!=(const Iterator& other) const { return !(*this == other); }

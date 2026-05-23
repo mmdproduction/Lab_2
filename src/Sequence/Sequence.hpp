@@ -5,6 +5,7 @@
 #include"LinkedList.hpp"
 #include"DynamicArray.hpp"
 #include"Iterator.hpp"
+#include <memory>
 
 
 template <typename T>
@@ -17,17 +18,17 @@ class Sequence: public IEnumerable<T>{
     virtual size_t getLength() const = 0;
     virtual void append(T value) = 0;
     virtual void prepend(T value) = 0;
-    Sequence<T>* getSubSequence(size_t startIndex, size_t endIndex) const;
+    std::unique_ptr<Sequence<T>> getSubSequence(size_t startIndex, size_t endIndex) const;
     virtual T operator[](int index) = 0;
 
     template<typename U>
-    Sequence<U>* map(std::function<U(const T&)> mapper) const;
-    Sequence<T>* where(std::function<bool(const T&)> filter) const;
-    Sequence<T>* concat(Sequence<T>& list) const;
+    std::unique_ptr<Sequence<U>> map(std::function<U(const T&)> mapper) const;
+    std::unique_ptr<Sequence<T>> where(std::function<bool(const T&)> filter) const;
+    std::unique_ptr<Sequence<T>> concat(Sequence<T>& list) const;
 
     template<typename U, typename F>
     U reduce(F&& reducer, U initial) const;
-    //TODO map-reduce
+
 
     Iterator<T> begin();
     Iterator<T> end();

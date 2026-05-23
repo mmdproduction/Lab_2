@@ -1,5 +1,5 @@
 template<typename T>
-FilterSequenceView<T>::FilterSequenceView(const Sequence<T>& src, std::function<T(const T&)> filtFunc)
+FilterSequenceView<T>::FilterSequenceView(const Sequence<T>& src, std::function<bool(const T&)> filtFunc)
     : source(src), filter(filtFunc) {}
 
 template<typename T>

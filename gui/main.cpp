@@ -6,7 +6,9 @@
 
 #include"Sequence.hpp"
 #include"BitSequence.hpp"
-#include"TestPanel.hpp"
+#include"TestView.hpp"
+#include"TestModel.hpp"
+#include"TestController.hpp"
 #include"SequencePanel.hpp"
 #include"TabsPanel.hpp"
 #include<iostream>
@@ -27,10 +29,9 @@ int main(){
     Renderer render = Renderer(window.getWidth(), window.getHeight(), "shaders/vert.glsl", "shaders/frag.glsl");
     TextRenderer textRender = TextRenderer(window.getWidth(), window.getHeight(), "shaders/text_vert.glsl", "shaders/text_frag.glsl");
 
-    if(!textRender.loadFont("C:/Windows/Fonts/arial.ttf", 24)){
+    if(!textRender.loadFont("C:/Windows/Fonts/arial.ttf", 24)){ //TODO добавить свой шрифт в папку assets
         std::cerr << "ERROR::FONT::BUILD_FAIL";
     }
-
 
 
     EventSystem events;
@@ -42,12 +43,22 @@ int main(){
     events.setScrollCallback(window.getWindow());
 
 
-    TestPanel* testPanel = new TestPanel(0, 0, window.getWidth(), window.getHeight() - 40);
+    TestModel testModel;
+    TestController testCtrl(testModel);
+    TestView testView(testModel, 0, 0, window.getWidth(), window.getHeight() - 40);
     SequencePanel* sequencePanel = new SequencePanel(0, 0, window.getWidth(), window.getHeight() - 40);
     TabsPanel* tabsPanel = new TabsPanel(0, window.getHeight() - 40, window.getWidth(), 40);
 
+
+
+    testModel.onTestFinished = [&](const TestResultData& data) {
+    std::string text = std::string(data.passed ? "[OK]   " : "[FAIL] ") + data.name;
+    testView.addResult(text, data.passed);
+    };
+    testView.onRunAll = [&]{ testView.clearList(); testCtrl.onRunAll(); };
+    testView.onClear  = [&]{ testCtrl.onClear(testView);};
+
     tabsPanel->addTab("Последовательность");
-    tabsPanel->addTab("Битовая послед.");
     tabsPanel->addTab("Тесты");
 
     float lastTime = glfwGetTime();
@@ -59,8 +70,8 @@ int main(){
         if(tabsPanel->getActive() == 0){
             sequencePanel->onEvent(events);
         }
-        if(tabsPanel->getActive() == 2){
-            testPanel->onEvent(events);
+        if(tabsPanel->getActive() == 1){
+            testView.onEvent(events);
         }
 
         double now = glfwGetTime();
@@ -71,16 +82,17 @@ int main(){
 
 
         tabsPanel->draw(render, textRender);
-        if(tabsPanel->getActive() == 2){
-            testPanel->draw(render, textRender);
+        if(tabsPanel->getActive() == 1){
+            testView.draw(render, textRender);
         }
         if(tabsPanel->getActive() == 0){
             sequencePanel->draw(render, textRender);
         }
         
         window.swapBuffers();
-        if(tabsPanel->getActive() == 2){
-            testPanel->update(dt);
+        if(tabsPanel->getActive() == 1){
+            testCtrl.update(testView);
+            testView.update(dt);
         }
         if(tabsPanel->getActive() == 0){
             sequencePanel->update(dt);
@@ -89,7 +101,6 @@ int main(){
 
     }
 
-    delete testPanel;
     delete tabsPanel;
 
     glfwTerminate();
