@@ -92,7 +92,7 @@ if(BUILD_LAB2_GUI AND TARGET OpenGUI)
         ${GUI}main.cpp
     )
     
-    target_link_libraries(lab2_gui PRIVATE
+    target_link_libraries(lab2_gui PUBLIC
         ${PROJECT_NAME}
         OpenGUI
     )
