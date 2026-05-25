@@ -102,7 +102,7 @@ Bit& BitSequence::operator[](int index){
     return Bit((data.get(byteIndex) & getBitMask(bitOffset)) != 0);
 }
 
-void BitSequence::setBit(Bit& value, size_t index){
+void BitSequence::setBit(const Bit& value, size_t index){
     if (index >= bitCount) IndexOutOfRange(index, bitCount);
     
     size_t byteIndex = getByteIndex(index);
@@ -119,14 +119,14 @@ void BitSequence::setBit(Bit& value, size_t index){
 }
 
 
-void BitSequence::append(Bit& value){
+void BitSequence::append(const Bit& value){
     size_t newIndex = bitCount++;
     provideCapacity(bitCount);
 
     if(value) setBit(value, newIndex);
 }
 
-void BitSequence::prepend(Bit& value){
+void BitSequence::prepend(const Bit& value){
     BitSequence result(bitCount + 1);
 
     for(size_t i = 0; i < bitCount; ++i){
