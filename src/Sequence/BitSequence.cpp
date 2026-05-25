@@ -92,14 +92,14 @@ Bit& BitSequence::getBit(size_t index) const {
     size_t byteIndex = getByteIndex(index);
     size_t bitOffset = getBitOffset(index);
     
-    return static_cast<Bit&>(Bit((data.get(byteIndex) & getBitMask(bitOffset)) != 0));
+    return const_cast<Bit&>(Bit((data.get(byteIndex) & getBitMask(bitOffset)) != 0));
 }
 
 Bit& BitSequence::operator[](int index){
     size_t byteIndex = getByteIndex(index);
     size_t bitOffset = getBitOffset(index);
     
-    return Bit((data.get(byteIndex) & getBitMask(bitOffset)) != 0);
+    return const_cast<Bit&>(Bit((data.get(byteIndex) & getBitMask(bitOffset)) != 0));
 }
 
 void BitSequence::setBit(const Bit& value, size_t index){
