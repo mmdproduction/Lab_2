@@ -35,7 +35,7 @@ class BitSequence: public Sequence<Bit>{
     static size_t getByteIndex(size_t bitIndex);
     static size_t getBitOffset(size_t bitIndex);
     static uint8_t getBitMask(size_t bitOffset);
-    Bit getBit(size_t index) const;
+    Bit& getBit(size_t index) const;
     void setBit(const Bit& value, size_t index);
 
     void provideCapacity(size_t newCapacity);
