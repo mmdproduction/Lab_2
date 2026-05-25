@@ -11,7 +11,13 @@ ArraySequence<T>::ArraySequence(T* item, int count) : capacity(count), size(coun
 
 template<typename T>
 ArraySequence<T>::ArraySequence(const ArraySequence<T>& other): size(other.size), capacity(other.capacity) {
+    if(other.array != nullptr)
     array = new DynamicArray<T>(*(other.array));
+    else{
+        array = new DynamicArray<T>();
+        size = 0;
+        capacity = 0;
+    }
 }
 template<typename T>
 ArraySequence<T>::ArraySequence(const std::initializer_list<T>& list): capacity(list.size()), size(list.size()) {
