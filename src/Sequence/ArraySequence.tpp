@@ -79,7 +79,8 @@ void ArraySequence<T>::popAt(size_t index){
         array->set(i, get(i + 1));
     }
     size--;
-    if(size > 0) array->resize(size);
+    capacity--;
+    array->resize(size);
 }
 
 template<typename T>
