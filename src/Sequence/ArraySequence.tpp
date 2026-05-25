@@ -10,10 +10,8 @@ ArraySequence<T>::ArraySequence(T* item, int count) : capacity(count), size(coun
 }
 
 template<typename T>
-ArraySequence<T>::ArraySequence(const ArraySequence<T>& other) {
+ArraySequence<T>::ArraySequence(const ArraySequence<T>& other): size(other.size), capacity(other.capacity) {
     array = new DynamicArray<T>(*(other.array));
-    capacity = other.capacity;
-    size = other.size;
 }
 template<typename T>
 ArraySequence<T>::ArraySequence(const std::initializer_list<T>& list): capacity(list.size()), size(list.size()) {
