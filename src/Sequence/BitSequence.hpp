@@ -35,7 +35,7 @@ class BitSequence: public Sequence<Bit>{
     static size_t getByteIndex(size_t bitIndex);
     static size_t getBitOffset(size_t bitIndex);
     static uint8_t getBitMask(size_t bitOffset);
-    Bit getBit(size_t index) const;
+    Bit& getBit(size_t index) const;
     void setBit(const Bit& value, size_t index);
 
     void provideCapacity(size_t newCapacity);
@@ -47,9 +47,9 @@ class BitSequence: public Sequence<Bit>{
     BitSequence(const BitSequence& other);
     ~BitSequence() override = default;
 
-    Bit getFirst() const override;
-    Bit getLast() const override;
-    Bit get(size_t index) const override;
+    Bit& getFirst() const override;
+    Bit& getLast() const override;
+    Bit& get(size_t index) const override;
     size_t getLength() const override;
     void append(const Bit& value) override;
     void prepend(const Bit& value) override;
@@ -57,7 +57,7 @@ class BitSequence: public Sequence<Bit>{
 
     void popAt(size_t index) override;
 
-    Bit operator[](int index) override;
+    Bit& operator[](int index) override;
 
 
 
