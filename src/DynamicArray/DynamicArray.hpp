@@ -19,7 +19,7 @@ class DynamicArray{
 
     ~DynamicArray();
 
-    void set(size_t index, T& value);
+    void set(size_t index, const T& value);
 
     T& get(size_t index) const;
     T& operator[](size_t index) const;

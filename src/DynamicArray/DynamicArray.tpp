@@ -64,7 +64,7 @@ DynamicArray<T>::~DynamicArray() {
 
 
 template<typename T>
-void DynamicArray<T>::set(size_t index, T& value){
+void DynamicArray<T>::set(size_t index, const T& value){
     if(index >= size){
         throw IndexOutOfRange(index, size);
     }

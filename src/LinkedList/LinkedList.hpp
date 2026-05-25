@@ -35,12 +35,12 @@ class LinkedList{
 
     size_t getLength() const;
 
-    void append(T& item);
-    void prepend(T& item);
+    void append(const T& item);
+    void prepend(const T& item);
 
     void popAt(size_t index);
 
-    void insertAt(T& item, int index);
+    void insertAt(const  T& item, int index);
     void set(T& item, size_t index);
 
     LinkedList<T>* concat(LinkedList<T>& list);

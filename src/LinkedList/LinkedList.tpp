@@ -103,7 +103,7 @@ size_t LinkedList<T>::getLength() const{
 }
 
 template<typename T>
-void LinkedList<T>::append(T item){
+void LinkedList<T>::append(const T& item){
     Node* node = new Node(item);
     if(head == nullptr){
         head = node;
@@ -118,7 +118,7 @@ void LinkedList<T>::append(T item){
 }
 
 template<typename T>
-void LinkedList<T>::prepend(T& item){
+void LinkedList<T>::prepend(const T& item){
     Node* node = new Node(item);
     if(head == nullptr){
         head = node;
@@ -132,7 +132,7 @@ void LinkedList<T>::prepend(T& item){
 }
 
 template<typename T>
-void LinkedList<T>::insertAt(T& item, int index){
+void LinkedList<T>::insertAt(const T& item, int index){
     if(index < 0 || index > size){
         throw IndexOutOfRange(index, size);
     }
@@ -156,7 +156,7 @@ void LinkedList<T>::insertAt(T& item, int index){
 }
 
 template<typename T>
-void LinkedList<T>::set(T& item, size_t index){
+void LinkedList<T>::set(const T& item, size_t index){
     if(index < 0 || index >= size){
         throw IndexOutOfRange(index, size);
     }

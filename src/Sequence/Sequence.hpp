@@ -18,9 +18,9 @@ class Sequence: public IEnumerable<T>{
     virtual T& get(size_t index) const = 0;
     virtual size_t getLength() const = 0;
 
-    virtual void append(T& value) = 0;
-    virtual void prepend(T& value) = 0;
-    virtual void set(T& value, size_t index) = 0;
+    virtual void append(const T& value) = 0;
+    virtual void prepend(const T& value) = 0;
+    virtual void set(const T& value, size_t index) = 0;
 
     virtual void popAt(size_t index) = 0;
 
@@ -72,9 +72,9 @@ class ArraySequence : public Sequence<T>{
     T& operator[](int index) override;
 
     size_t getLength() const override;
-    void append(T& value) override;
-    void prepend(T& value) override;
-    void set(T& value, size_t index) override;
+    void append(const T& value) override;
+    void prepend(const T& value) override;
+    void set(const T& value, size_t index) override;
 
     void popAt(size_t index) override;
 
@@ -101,9 +101,9 @@ class ListSequence : public Sequence<T>{
     T& operator[](int index) override;
 
     size_t getLength() const override;
-    void append(T& value) override;
-    void prepend(T& value) override;
-    void set(T& value, size_t index) override;
+    void append(const T& value) override;
+    void prepend(const T& value) override;
+    void set(const T& value, size_t index) override;
 
     void popAt(size_t index) override;
 };
