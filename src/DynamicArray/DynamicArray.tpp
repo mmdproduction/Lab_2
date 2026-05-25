@@ -11,13 +11,14 @@ DynamicArray<T>::DynamicArray(size_t initial_size) : size(initial_size) {
 
 template<typename T>
 DynamicArray<T>::DynamicArray(const DynamicArray& other) : size(other.size) {
-    if (size > 0) {
+    if (size > 0 && other.data != nullptr) {
         data = new T[size];
         for (size_t i = 0; i < size; ++i) {
             data[i] = other.data[i];
         }
     } else {
         data = nullptr;
+        size = 0;
     }
 }
 
@@ -43,9 +44,13 @@ DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray& other) {
     if (this != &other) {
         delete[] data;
         size = other.size;
-        data = new T[size];
-        for (size_t i = 0; i < size; ++i) {
-            data[i] = other.data[i];
+        if (size > 0) {
+            data = new T[size];
+            for (size_t i = 0; i < size; ++i) {
+                data[i] = other.data[i];
+            }
+        } else {
+            data = nullptr;
         }
     }
     return *this;
