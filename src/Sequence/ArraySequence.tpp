@@ -45,7 +45,7 @@ size_t ArraySequence<T>::getLength() const{
 }
 
 template <typename T>
-void ArraySequence<T>::append(T& value){
+void ArraySequence<T>::append(const T& value){
     if(capacity < size + 1){
         capacity = (capacity == 0) ? 1 : capacity * 2;
         array->resize(capacity);
@@ -55,7 +55,7 @@ void ArraySequence<T>::append(T& value){
 }
 
 template <typename T>
-void ArraySequence<T>::prepend(T& value){
+void ArraySequence<T>::prepend(const T& value){
     if(capacity <= size){
         capacity = (capacity == 0) ? 1 : capacity * 2;
         array->resize(capacity);
@@ -68,7 +68,7 @@ void ArraySequence<T>::prepend(T& value){
 }
 
 template <typename T>
-void ArraySequence<T>::set(T& value, size_t index){
+void ArraySequence<T>::set(const T& value, size_t index){
     array->set(index, value);
 }
 

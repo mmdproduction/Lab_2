@@ -41,12 +41,12 @@ size_t ListSequence<T>::getLength() const{
 }
 
 template <typename T>
-void ListSequence<T>::append(T& value){
+void ListSequence<T>::append(const T& value){
     list->append(value);
 }
 
 template <typename T>
-void ListSequence<T>::prepend(T& value){
+void ListSequence<T>::prepend(const T& value){
     list->prepend(value);
 }
 
@@ -59,7 +59,7 @@ T& ListSequence<T>::operator[](int index){
 }
 
 template <typename T>
-void ListSequence<T>::set(T& value, size_t index){
+void ListSequence<T>::set(const T& value, size_t index){
     list->set(value, index);
 }
 

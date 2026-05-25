@@ -41,7 +41,7 @@ class LinkedList{
     void popAt(size_t index);
 
     void insertAt(const  T& item, int index);
-    void set(T& item, size_t index);
+    void set(const T& item, size_t index);
 
     LinkedList<T>* concat(LinkedList<T>& list);
 
