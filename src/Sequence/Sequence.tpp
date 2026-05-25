@@ -16,7 +16,7 @@ IEnumerator<T>* Sequence<T>::getEnumerator() const{
 }
 
 template<typename T>
-T ArraySequence<T>::operator[](int index){
+T& ArraySequence<T>::operator[](int index){
     return (*array)[index];
 }
 

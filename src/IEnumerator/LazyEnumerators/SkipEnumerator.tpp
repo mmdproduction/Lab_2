@@ -21,7 +21,7 @@ bool SkipEnumerator<T>::moveNext(){
 }
 
 template<typename T>
-T SkipEnumerator<T>::current(){
+T& SkipEnumerator<T>::current(){
     if (!isValid) throw InvalidEnumerator();
     return source->current();
 }

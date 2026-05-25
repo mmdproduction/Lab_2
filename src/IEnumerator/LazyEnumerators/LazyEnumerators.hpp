@@ -9,14 +9,14 @@ class MapEnumerator: public IEnumerator<TargetType>{
     IEnumerator<SourceType>* source;
     std::function<TargetType(const SourceType&)> mapper;
     bool isValid;
-    TargetType currentValue;
+    TargetType& currentValue;
 
     public:
     MapEnumerator(IEnumerator<SourceType>* src, std::function<TargetType(const SourceType&)> mapFunc);
 
     ~MapEnumerator() override { delete source; }
     bool moveNext() override;
-    TargetType current() override;
+    TargetType& current() override;
     void reset() override;
 };
 
@@ -27,7 +27,7 @@ class FilterEnumerator: public IEnumerator<T>{
     IEnumerator<T>* source;
     std::function<bool(const T&)> filter;
     bool isValid;
-    T currentValue;
+    T& currentValue;
 
     public:
     FilterEnumerator(IEnumerator<T>* src, std::function<bool(const T&)> mapFunc);
@@ -35,7 +35,7 @@ class FilterEnumerator: public IEnumerator<T>{
     ~FilterEnumerator() override { delete source; }
 
     bool moveNext() override;
-    T current() override;
+    T& current() override;
     void reset() override;
 };
 
@@ -49,14 +49,14 @@ class ConcatEnumerator: public IEnumerator<T>{
     IEnumerator<T>* active;
 
     bool isValid;
-    T currentValue;
+    T& currentValue;
 
     public:
     ConcatEnumerator(IEnumerator<T>* firstEnum, IEnumerator<T>* SecondEnum);
     ~ConcatEnumerator() override { delete first; delete second; };
 
     bool moveNext() override;
-    T current() override;
+    T& current() override;
     void reset() override;
 };
 
@@ -70,7 +70,7 @@ class IndexEnumerator: public IEnumerator<T>{
     bool isValid;
     bool found;
 
-    T currentValue;
+    T& currentValue;
 
     public:
 
@@ -78,7 +78,7 @@ class IndexEnumerator: public IEnumerator<T>{
     ~IndexEnumerator() override { delete source; }
 
     bool moveNext() override;
-    T current() override;
+    T& current() override;
     void reset() override;
 };
 
@@ -98,7 +98,7 @@ class SkipEnumerator : public IEnumerator<T> {
     ~SkipEnumerator() override { delete source; };
 
     bool moveNext() override;
-    T current() override;
+    T& current() override;
     void reset() override;
 
 };

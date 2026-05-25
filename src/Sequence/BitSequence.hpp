@@ -48,17 +48,17 @@ class BitSequence: public Sequence<Bit>{
     explicit BitSequence(int num);
     ~BitSequence() override = default;
 
-    Bit getFirst() const override;
-    Bit getLast() const override;
-    Bit get(size_t index) const override;
+    Bit& getFirst() const override;
+    Bit& getLast() const override;
+    Bit& get(size_t index) const override;
     size_t getLength() const override;
-    void append(Bit value) override;
-    void prepend(Bit value) override;
-    void set(Bit value, size_t index) override;
+    void append(Bit& value) override;
+    void prepend(Bit& value) override;
+    void set(Bit& value, size_t index) override;
 
     void popAt(size_t index) override;
 
-    Bit operator[](int index) override;
+    Bit& operator[](int index) override;
 
 
 

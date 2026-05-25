@@ -13,7 +13,7 @@ bool MapEnumerator<TargetType, SourceType>::moveNext(){
     return false;
 }
 template<typename TargetType, typename SourceType>
-TargetType MapEnumerator<TargetType, SourceType>::current() {
+TargetType& MapEnumerator<TargetType, SourceType>::current() {
         if (!isValid) throw InvalidEnumerator();
         return currentValue;
     }

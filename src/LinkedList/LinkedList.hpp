@@ -20,28 +20,28 @@ class LinkedList{
     public:
 
     LinkedList();
-    explicit LinkedList(T* items, int count);
-    explicit LinkedList(const LinkedList<T>& list);
-    explicit LinkedList(const std::initializer_list<T>& list);
+    LinkedList(T* items, int count);
+    LinkedList(const LinkedList<T>& list);
+    LinkedList(const std::initializer_list<T>& list);
     ~LinkedList();
 
-    T getFirst() const;
-    T getLast() const;
-    T get(int index) const;
-    T operator[](int index) const;
+    T& getFirst() const;
+    T& getLast() const;
+    T& get(int index) const;
+    T& operator[](int index) const;
     LinkedList<T>& operator=(const LinkedList<T>& other);
     
     LinkedList<T>* getSubList(int startIndex, int endIndex);
 
     size_t getLength() const;
 
-    void append(T item);
-    void prepend(T item);
+    void append(T& item);
+    void prepend(T& item);
 
     void popAt(size_t index);
 
-    void insertAt(T item, int index);
-    void set(T item, size_t index);
+    void insertAt(T& item, int index);
+    void set(T& item, size_t index);
 
     LinkedList<T>* concat(LinkedList<T>& list);
 

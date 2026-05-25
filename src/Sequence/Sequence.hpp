@@ -13,19 +13,19 @@ class Sequence: public IEnumerable<T>{
     public:
     virtual ~Sequence() = default;
 
-    virtual T getFirst() const = 0;
-    virtual T getLast() const = 0;
-    virtual T get(size_t index) const = 0;
+    virtual T& getFirst() const = 0;
+    virtual T& getLast() const = 0;
+    virtual T& get(size_t index) const = 0;
     virtual size_t getLength() const = 0;
 
-    virtual void append(T value) = 0;
-    virtual void prepend(T value) = 0;
-    virtual void set(T value, size_t index) = 0;
+    virtual void append(T& value) = 0;
+    virtual void prepend(T& value) = 0;
+    virtual void set(T& value, size_t index) = 0;
 
     virtual void popAt(size_t index) = 0;
 
     std::unique_ptr<Sequence<T>> getSubSequence(size_t startIndex, size_t endIndex) const;
-    virtual T operator[](int index) = 0;
+    virtual T& operator[](int index) = 0;
 
     template<typename U>
     std::unique_ptr<Sequence<U>> map(std::function<U(const T&)> mapper) const;
@@ -66,15 +66,15 @@ class ArraySequence : public Sequence<T>{
     ArraySequence(const std::initializer_list<T>& list);
     ~ArraySequence();
 
-    T getFirst() const override;
-    T getLast() const override;
-    T get(size_t index) const override;
-    T operator[](int index) override;
+    T& getFirst() const override;
+    T& getLast() const override;
+    T& get(size_t index) const override;
+    T& operator[](int index) override;
 
     size_t getLength() const override;
-    void append(T value) override;
-    void prepend(T value) override;
-    void set(T value, size_t index) override;
+    void append(T& value) override;
+    void prepend(T& value) override;
+    void set(T& value, size_t index) override;
 
     void popAt(size_t index) override;
 
@@ -95,15 +95,15 @@ class ListSequence : public Sequence<T>{
     ListSequence(const std::initializer_list<T>& list);
     ~ListSequence();
 
-    T getFirst() const override;
-    T getLast() const override;
-    T get(size_t index) const override;
-    T operator[](int index) override;
+    T& getFirst() const override;
+    T& getLast() const override;
+    T& get(size_t index) const override;
+    T& operator[](int index) override;
 
     size_t getLength() const override;
-    void append(T value) override;
-    void prepend(T value) override;
-    void set(T value, size_t index) override;
+    void append(T& value) override;
+    void prepend(T& value) override;
+    void set(T& value, size_t index) override;
 
     void popAt(size_t index) override;
 };

@@ -44,7 +44,7 @@ LinkedList<T>::~LinkedList() {
 }
 
 template<typename T>
-T LinkedList<T>::getFirst() const{
+T& LinkedList<T>::getFirst() const{
     if(size == 0){ 
         throw IndexOutOfRange(0, size);
     }
@@ -52,7 +52,7 @@ T LinkedList<T>::getFirst() const{
 }
 
 template<typename T>
-T LinkedList<T>::getLast() const{
+T& LinkedList<T>::getLast() const{
     if(size == 0){
         throw IndexOutOfRange(0, size); 
     }
@@ -60,7 +60,7 @@ T LinkedList<T>::getLast() const{
 }
 
 template<typename T>
-T LinkedList<T>::get(int index) const {
+T& LinkedList<T>::get(int index) const {
     if(index < 0 || index >= size){
         throw IndexOutOfRange(index, size); 
     }
@@ -118,7 +118,7 @@ void LinkedList<T>::append(T item){
 }
 
 template<typename T>
-void LinkedList<T>::prepend(T item){
+void LinkedList<T>::prepend(T& item){
     Node* node = new Node(item);
     if(head == nullptr){
         head = node;
@@ -132,7 +132,7 @@ void LinkedList<T>::prepend(T item){
 }
 
 template<typename T>
-void LinkedList<T>::insertAt(T item, int index){
+void LinkedList<T>::insertAt(T& item, int index){
     if(index < 0 || index > size){
         throw IndexOutOfRange(index, size);
     }
@@ -156,7 +156,7 @@ void LinkedList<T>::insertAt(T item, int index){
 }
 
 template<typename T>
-void LinkedList<T>::set(T item, size_t index){
+void LinkedList<T>::set(T& item, size_t index){
     if(index < 0 || index >= size){
         throw IndexOutOfRange(index, size);
     }
@@ -212,7 +212,7 @@ LinkedList<T>* LinkedList<T>::concat(LinkedList<T>& list){
 }
 
 template<typename T>
-T LinkedList<T>::operator[](int index) const{
+T& LinkedList<T>::operator[](int index) const{
     Node* tmp = head;
     for(size_t i = 0; i < index; ++i){
         tmp = tmp->next;

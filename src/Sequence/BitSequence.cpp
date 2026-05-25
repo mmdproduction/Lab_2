@@ -66,17 +66,17 @@ BitSequence::BitSequence(size_t size)
 BitSequence::BitSequence(const BitSequence& other)
     : data(other.data), bitCount(other.bitCount) {}
 
-Bit BitSequence::getFirst() const {
+Bit& BitSequence::getFirst() const {
     if (bitCount == 0) throw EmptySequence();
     return getBit(0);
 }
 
-Bit BitSequence::getLast() const {
+Bit& BitSequence::getLast() const {
     if (bitCount == 0) throw EmptySequence();
     return getBit(bitCount - 1);
 }
 
-Bit BitSequence::get(size_t index) const {
+Bit& BitSequence::get(size_t index) const {
     if (index >= bitCount) throw IndexOutOfRange(index, bitCount);
     return getBit(index);
 }
@@ -85,7 +85,7 @@ size_t BitSequence::getLength() const {
     return bitCount;
 }
 
-Bit BitSequence::getBit(size_t index) const {
+Bit& BitSequence::getBit(size_t index) const {
     if (index >= bitCount) IndexOutOfRange(index, bitCount);
     
     
@@ -95,14 +95,14 @@ Bit BitSequence::getBit(size_t index) const {
     return Bit((data.get(byteIndex) & getBitMask(bitOffset)) != 0);
 }
 
-Bit BitSequence::operator[](int index){
+Bit& BitSequence::operator[](int index){
     size_t byteIndex = getByteIndex(index);
     size_t bitOffset = getBitOffset(index);
     
     return Bit((data.get(byteIndex) & getBitMask(bitOffset)) != 0);
 }
 
-void BitSequence::setBit(Bit value, size_t index){
+void BitSequence::setBit(Bit& value, size_t index){
     if (index >= bitCount) IndexOutOfRange(index, bitCount);
     
     size_t byteIndex = getByteIndex(index);
@@ -119,14 +119,14 @@ void BitSequence::setBit(Bit value, size_t index){
 }
 
 
-void BitSequence::append(Bit value){
+void BitSequence::append(Bit& value){
     size_t newIndex = bitCount++;
     provideCapacity(bitCount);
 
     if(value) setBit(value, newIndex);
 }
 
-void BitSequence::prepend(Bit value){
+void BitSequence::prepend(Bit& value){
     BitSequence result(bitCount + 1);
 
     for(size_t i = 0; i < bitCount; ++i){

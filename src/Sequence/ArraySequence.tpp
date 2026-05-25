@@ -25,17 +25,17 @@ ArraySequence<T>::ArraySequence(const std::initializer_list<T>& list): capacity(
 }
 
 template <typename T>
-T ArraySequence<T>::getFirst() const{
+T& ArraySequence<T>::getFirst() const{
     return array->get(0);
 }
 
 template <typename T>
-T ArraySequence<T>::getLast() const{
+T& ArraySequence<T>::getLast() const{
     return array->get(size - 1);
 }
 
 template <typename T>
-T ArraySequence<T>::get(size_t index) const{
+T& ArraySequence<T>::get(size_t index) const{
     return array->get(index);
 }
 
@@ -45,7 +45,7 @@ size_t ArraySequence<T>::getLength() const{
 }
 
 template <typename T>
-void ArraySequence<T>::append(T value){
+void ArraySequence<T>::append(T& value){
     if(capacity < size + 1){
         capacity = (capacity == 0) ? 1 : capacity * 2;
         array->resize(capacity);
@@ -55,7 +55,7 @@ void ArraySequence<T>::append(T value){
 }
 
 template <typename T>
-void ArraySequence<T>::prepend(T value){
+void ArraySequence<T>::prepend(T& value){
     if(capacity <= size){
         capacity = (capacity == 0) ? 1 : capacity * 2;
         array->resize(capacity);
@@ -68,7 +68,7 @@ void ArraySequence<T>::prepend(T value){
 }
 
 template <typename T>
-void ArraySequence<T>::set(T value, size_t index){
+void ArraySequence<T>::set(T& value, size_t index){
     array->set(index, value);
 }
 

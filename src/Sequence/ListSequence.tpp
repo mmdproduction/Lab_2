@@ -21,17 +21,17 @@ ListSequence<T>::ListSequence(const std::initializer_list<T>& list){
 }
 
 template <typename T>
-T ListSequence<T>::getFirst() const{
+T& ListSequence<T>::getFirst() const{
     return list->getFirst();
 }
 
 template <typename T>
-T ListSequence<T>::getLast() const{
+T& ListSequence<T>::getLast() const{
     return list->getLast();
 }
 
 template <typename T>
-T ListSequence<T>::get(size_t index) const{
+T& ListSequence<T>::get(size_t index) const{
     return list->get(index);
 }
 
@@ -41,12 +41,12 @@ size_t ListSequence<T>::getLength() const{
 }
 
 template <typename T>
-void ListSequence<T>::append(T value){
+void ListSequence<T>::append(T& value){
     list->append(value);
 }
 
 template <typename T>
-void ListSequence<T>::prepend(T value){
+void ListSequence<T>::prepend(T& value){
     list->prepend(value);
 }
 
@@ -54,12 +54,12 @@ template<typename T>
 ListSequence<T>::~ListSequence() { delete list; }
 
 template<typename T>
-T ListSequence<T>::operator[](int index){
+T& ListSequence<T>::operator[](int index){
     return (*list)[index];
 }
 
 template <typename T>
-void ListSequence<T>::set(T value, size_t index){
+void ListSequence<T>::set(T& value, size_t index){
     list->set(value, index);
 }
 

@@ -8,14 +8,14 @@ IEnumerator<T>* ConcatSequenceView<T>::getEnumerator() const {
 }
 
 template<typename T>
-T ConcatSequenceView<T>::getFirst() const { return first.getFirst();
+T& ConcatSequenceView<T>::getFirst() const { return first.getFirst();
     }
 
 template<typename T>
-T ConcatSequenceView<T>::getLast() const { return second.getLast();}
+T& ConcatSequenceView<T>::getLast() const { return second.getLast();}
 
 template<typename T>
-T ConcatSequenceView<T>::get(size_t index) const {
+T& ConcatSequenceView<T>::get(size_t index) const {
         auto enumPtr = new IndexEnumerator<T>(getEnumerator(), index);
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<T>::endIterator();
