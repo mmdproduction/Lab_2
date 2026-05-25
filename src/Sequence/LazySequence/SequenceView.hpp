@@ -29,9 +29,9 @@ public:
 
     size_t getLength() const override;
 
-    void append(TargetType&) override { throw ReadOnlyError(); } 
-    void prepend(TargetType&) override { throw ReadOnlyError(); }
-    void set(TargetType& value, size_t index) override { throw ReadOnlyError(); }
+    void append(const TargetType&) override { throw ReadOnlyError(); } 
+    void prepend(const TargetType&) override { throw ReadOnlyError(); }
+    void set(const TargetType& value, size_t index) override { throw ReadOnlyError(); }
 
     void popAt(size_t index) override { throw ReadOnlyError(); };
 
@@ -59,9 +59,9 @@ public:
 
     size_t getLength() const override;
 
-    void append(T&) override { throw ReadOnlyError(); } 
-    void prepend(T&) override { throw ReadOnlyError(); } 
-    void set(T& value, size_t index) override { throw ReadOnlyError(); }
+    void append(const T&) override { throw ReadOnlyError(); } 
+    void prepend(const T&) override { throw ReadOnlyError(); } 
+    void set(const T& value, size_t index) override { throw ReadOnlyError(); }
 
     void popAt(size_t index) override { throw ReadOnlyError(); }
 
@@ -85,9 +85,9 @@ public:
     T& get(size_t index) const override;
     size_t getLength() const override;
 
-    void append(T&) override { throw ReadOnlyError(); } 
-    void prepend(T&) override { throw ReadOnlyError(); }
-    void set(T& value, size_t index) override { throw ReadOnlyError(); }
+    void append(const T&) override { throw ReadOnlyError(); } 
+    void prepend(const T&) override { throw ReadOnlyError(); }
+    void set(const T& value, size_t index) override { throw ReadOnlyError(); }
 
     void popAt(size_t index) override { throw ReadOnlyError(); }
 
@@ -112,9 +112,9 @@ public:
     T& get(size_t index) const override;
     size_t getLength() const override;
 
-    void append(T&) override { throw ReadOnlyError(); } 
-    void prepend(T&) override { throw ReadOnlyError(); }
-    void set(T& value, size_t index) override { throw ReadOnlyError(); }
+    void append(const T&) override { throw ReadOnlyError(); } 
+    void prepend(const T&) override { throw ReadOnlyError(); }
+    void set(const T& value, size_t index) override { throw ReadOnlyError(); }
 
     void popAt(size_t index) override { throw ReadOnlyError(); }
 
