@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(Lab_2 CXX)
 set(CMAKE_CXX_STANDARD 20)
 
-# Опции для управления сборкой тестов и GUI
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ GUI
 option(BUILD_LAB2_TESTS "Build tests for Lab_2" OFF)
 option(BUILD_LAB2_GUI "Build GUI for Lab_2" OFF)
 
@@ -29,7 +29,6 @@ set(HEADER_FILES
     ${SRC}IEnumerator/Iterator.hpp
     ${SRC}LinkedList/LinkedList.hpp
     ${SRC}Sequence/Sequence.hpp
-    ${SRC}Sequence/BitSequence.hpp
     ${SRC}IEnumerator/LazyEnumerators/LazyEnumerators.hpp
     ${SRC}Sequence/LazySequence/SequenceView.hpp
     ${SRC}Test/TestRunner.hpp
@@ -55,7 +54,6 @@ set(TEMPLATE_FILES
 )
 
 set(SOURCE_FILES
-    ${SRC}Sequence/BitSequence.cpp
     ${SRC}Test/TestRunner.cpp
 )
 
