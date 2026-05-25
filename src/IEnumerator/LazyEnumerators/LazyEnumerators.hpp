@@ -9,7 +9,7 @@ class MapEnumerator: public IEnumerator<TargetType>{
     IEnumerator<SourceType>* source;
     std::function<TargetType(const SourceType&)> mapper;
     bool isValid;
-    TargetType& currentValue;
+    TargetType currentValue;
 
     public:
     MapEnumerator(IEnumerator<SourceType>* src, std::function<TargetType(const SourceType&)> mapFunc);
@@ -27,7 +27,7 @@ class FilterEnumerator: public IEnumerator<T>{
     IEnumerator<T>* source;
     std::function<bool(const T&)> filter;
     bool isValid;
-    T& currentValue;
+    T currentValue;
 
     public:
     FilterEnumerator(IEnumerator<T>* src, std::function<bool(const T&)> mapFunc);
@@ -49,7 +49,7 @@ class ConcatEnumerator: public IEnumerator<T>{
     IEnumerator<T>* active;
 
     bool isValid;
-    T& currentValue;
+    T currentValue;
 
     public:
     ConcatEnumerator(IEnumerator<T>* firstEnum, IEnumerator<T>* SecondEnum);
@@ -70,7 +70,7 @@ class IndexEnumerator: public IEnumerator<T>{
     bool isValid;
     bool found;
 
-    T& currentValue;
+    T currentValue;
 
     public:
 
