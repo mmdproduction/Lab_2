@@ -8,7 +8,7 @@ IEnumerator<TargetType>* MapSequenceView<TargetType, SourceType>::getEnumerator(
     }
 
 template<typename TargetType, typename SourceType>
-TargetType& MapSequenceView<TargetType, SourceType>::getFirst() const {
+TargetType MapSequenceView<TargetType, SourceType>::getFirst() const {
         auto enumPtr = getEnumerator();
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<TargetType>::endIterator();
@@ -25,7 +25,7 @@ TargetType& MapSequenceView<TargetType, SourceType>::getFirst() const {
 
 
 template<typename TargetType, typename SourceType>
-TargetType& MapSequenceView<TargetType, SourceType>::getLast() const {
+TargetType MapSequenceView<TargetType, SourceType>::getLast() const {
         TargetType result;
         
         auto enumPtr = getEnumerator();
@@ -43,7 +43,7 @@ TargetType& MapSequenceView<TargetType, SourceType>::getLast() const {
     }
 
 template<typename TargetType, typename SourceType>
-TargetType& MapSequenceView<TargetType, SourceType>::get(size_t index) const {
+TargetType MapSequenceView<TargetType, SourceType>::get(size_t index) const {
         auto enumPtr = new IndexEnumerator<TargetType>(getEnumerator(), index);
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<TargetType>::endIterator();

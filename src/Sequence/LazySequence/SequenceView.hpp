@@ -21,11 +21,11 @@ public:
 
     IEnumerator<TargetType>* getEnumerator() const override;
 
-    TargetType& getFirst() const override;
+    TargetType getFirst() const override;
 
-    TargetType& getLast() const override;
+    TargetType getLast() const override;
 
-    TargetType& get(size_t index) const override;
+    TargetType get(size_t index) const override;
 
     size_t getLength() const override;
 
@@ -35,7 +35,7 @@ public:
 
     void popAt(size_t index) override { throw ReadOnlyError(); };
 
-    TargetType& operator[](int index) override { return get(index); }
+    TargetType operator[](int index) override { return get(index); }
 
     ~MapSequenceView() override = default;
 };
@@ -51,11 +51,11 @@ public:
 
     IEnumerator<T>* getEnumerator() const override;
 
-    T& getFirst() const override;
+    T getFirst() const override;
 
-    T& getLast() const override;
+    T getLast() const override;
 
-    T& get(size_t index) const override;
+    T get(size_t index) const override;
 
     size_t getLength() const override;
 
@@ -65,7 +65,7 @@ public:
 
     void popAt(size_t index) override { throw ReadOnlyError(); }
 
-    T& operator[](int index) override { return get(index); }
+    T operator[](int index) override { return get(index); }
     ~FilterSequenceView() override = default;
 };
 
@@ -80,9 +80,9 @@ public:
 
     IEnumerator<T>* getEnumerator() const override;
 
-    T& getFirst() const override;
-    T& getLast() const override;
-    T& get(size_t index) const override;
+    T getFirst() const override;
+    T getLast() const override;
+    T get(size_t index) const override;
     size_t getLength() const override;
 
     void append(const T&) override { throw ReadOnlyError(); } 
@@ -92,7 +92,7 @@ public:
     void popAt(size_t index) override { throw ReadOnlyError(); }
 
 
-    T& operator[](int index) override { return get(index); }
+    T operator[](int index) override { return get(index); }
     ~ConcatSequenceView() override = default;
 };
 
@@ -107,9 +107,9 @@ public:
 
     IEnumerator<T>* getEnumerator() const override;
 
-    T& getFirst() const override;
-    T& getLast() const override;
-    T& get(size_t index) const override;
+    T getFirst() const override;
+    T getLast() const override;
+    T get(size_t index) const override;
     size_t getLength() const override;
 
     void append(const T&) override { throw ReadOnlyError(); } 
@@ -118,7 +118,7 @@ public:
 
     void popAt(size_t index) override { throw ReadOnlyError(); }
 
-    T& operator[](int index) override { return get(index); }
+    T operator[](int index) override { return get(index); }
     ~SubSequenceView() override = default;
 };
 

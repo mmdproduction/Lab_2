@@ -7,7 +7,7 @@ IEnumerator<T>* SubSequenceView<T>::getEnumerator() const{
 }
 
 template<typename T>
-T& SubSequenceView<T>::getFirst() const{
+T SubSequenceView<T>::getFirst() const{
     auto enumPtr = getEnumerator();
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<T>::endIterator();
@@ -21,7 +21,7 @@ T& SubSequenceView<T>::getFirst() const{
 }
 
 template<typename T>
-T& SubSequenceView<T>::getLast() const{
+T SubSequenceView<T>::getLast() const{
         T result;
         
         auto enumPtr = getEnumerator();
@@ -40,7 +40,7 @@ T& SubSequenceView<T>::getLast() const{
 
 
 template<typename T>
-T& SubSequenceView<T>::get(size_t index) const {
+T SubSequenceView<T>::get(size_t index) const {
     auto enumPtr = new IndexEnumerator<T>(getEnumerator(), index);
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<T>::endIterator();

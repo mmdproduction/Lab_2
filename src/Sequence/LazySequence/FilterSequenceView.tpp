@@ -8,7 +8,7 @@ IEnumerator<T>* FilterSequenceView<T>::getEnumerator() const {
 }
 
 template<typename T>
-T& FilterSequenceView<T>::getFirst() const {
+T FilterSequenceView<T>::getFirst() const {
         auto enumPtr = getEnumerator();
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<T>::endIterator();
@@ -22,7 +22,7 @@ T& FilterSequenceView<T>::getFirst() const {
     }
 
 template<typename T>
-T& FilterSequenceView<T>::getLast() const {
+T FilterSequenceView<T>::getLast() const {
         T result;
         
         auto enumPtr = getEnumerator();
@@ -39,7 +39,7 @@ T& FilterSequenceView<T>::getLast() const {
     }
 
 template<typename T>
-T& FilterSequenceView<T>::get(size_t index) const {
+T FilterSequenceView<T>::get(size_t index) const {
         auto enumPtr = new IndexEnumerator<T>(getEnumerator(), index);
         auto iterator = Iterator(enumPtr, false);
         auto end = Iterator<T>::endIterator();
