@@ -25,10 +25,10 @@ class LinkedList{
     LinkedList(const std::initializer_list<T>& list);
     ~LinkedList();
 
-    T& getFirst() const;
-    T& getLast() const;
-    T& get(int index) const;
-    T& operator[](int index) const;
+    T getFirst() const;
+    T getLast() const;
+    T get(int index) const;
+    T operator[](int index) const;
     LinkedList<T>& operator=(const LinkedList<T>& other);
     
     LinkedList<T>* getSubList(int startIndex, int endIndex);

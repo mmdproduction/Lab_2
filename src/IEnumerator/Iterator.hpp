@@ -9,7 +9,7 @@ class Iterator{
 
     public:
     Iterator(IEnumerator<T>* enumPtr, bool end = false);
-    T& operator*() const;
+    T operator*() const;
     Iterator<T>& operator++();
     bool operator!=(const Iterator& other) const;
     bool operator==(const Iterator& other) const;

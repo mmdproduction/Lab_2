@@ -10,9 +10,9 @@ class DynamicArray{
     public:
 
     DynamicArray();
-    explicit DynamicArray(size_t size);
-    explicit DynamicArray(const DynamicArray& other);
-    explicit DynamicArray(T* array, size_t count);
+    DynamicArray(size_t size);
+    DynamicArray(const DynamicArray& other);
+    DynamicArray(T* array, size_t count);
     DynamicArray(const std::initializer_list<T>& list);
 
     DynamicArray& operator=(const DynamicArray& other);
@@ -21,8 +21,8 @@ class DynamicArray{
 
     void set(size_t index, const T& value);
 
-    T& get(size_t index) const;
-    T& operator[](size_t index) const;
+    T get(size_t index) const;
+    T operator[](size_t index) const;
     size_t getSize() const;
     
     void resize(size_t newSize);

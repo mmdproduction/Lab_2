@@ -72,7 +72,7 @@ void DynamicArray<T>::set(size_t index, const T& value){
 }
 
 template<typename T>
-T& DynamicArray<T>::get(size_t index) const {
+T DynamicArray<T>::get(size_t index) const {
     if (index >= size) {
         throw IndexOutOfRange(index, size);
     }
@@ -82,7 +82,7 @@ T& DynamicArray<T>::get(size_t index) const {
 
 
 template<typename T>
-T& DynamicArray<T>::operator[](size_t index) const{
+T DynamicArray<T>::operator[](size_t index) const{
     return data[index];
 }
 

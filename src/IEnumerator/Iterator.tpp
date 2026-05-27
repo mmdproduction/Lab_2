@@ -8,7 +8,7 @@ Iterator<T>::Iterator(IEnumerator<T>* enumPtr, bool end): enumerator(enumPtr), i
 }
 
 template<typename T>
-T& Iterator<T>::operator*() const{
+T Iterator<T>::operator*() const{
     return enumerator->current();
 }
 

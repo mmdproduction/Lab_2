@@ -12,7 +12,7 @@ bool SequenceEnumerator<T>::moveNext(){
 }
 
 template<typename T>
-T& SequenceEnumerator<T>::current(){
+T SequenceEnumerator<T>::current(){
     if (!isValid) throw InvalidEnumerator();
     return sequence->get(currentIndex);
 }

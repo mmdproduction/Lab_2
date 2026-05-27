@@ -25,17 +25,17 @@ ArraySequence<T>::ArraySequence(const std::initializer_list<T>& list): capacity(
 }
 
 template <typename T>
-T& ArraySequence<T>::getFirst() const{
+T ArraySequence<T>::getFirst() const{
     return array->get(0);
 }
 
 template <typename T>
-T& ArraySequence<T>::getLast() const{
+T ArraySequence<T>::getLast() const{
     return array->get(size - 1);
 }
 
 template <typename T>
-T& ArraySequence<T>::get(size_t index) const{
+T ArraySequence<T>::get(size_t index) const{
     return array->get(index);
 }
 

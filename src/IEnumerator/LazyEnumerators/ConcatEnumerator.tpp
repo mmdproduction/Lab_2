@@ -25,7 +25,7 @@ bool ConcatEnumerator<T>::moveNext(){
 }
 
 template<typename T>
-T& ConcatEnumerator<T>::current(){
+T ConcatEnumerator<T>::current(){
     if (!isValid) throw InvalidEnumerator();
     return currentValue;
 }

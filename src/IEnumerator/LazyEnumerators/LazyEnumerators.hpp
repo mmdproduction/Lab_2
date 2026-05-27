@@ -16,7 +16,7 @@ class MapEnumerator: public IEnumerator<TargetType>{
 
     ~MapEnumerator() override { delete source; }
     bool moveNext() override;
-    TargetType& current() override;
+    TargetType current() override;
     void reset() override;
 };
 
@@ -35,7 +35,7 @@ class FilterEnumerator: public IEnumerator<T>{
     ~FilterEnumerator() override { delete source; }
 
     bool moveNext() override;
-    T& current() override;
+    T current() override;
     void reset() override;
 };
 
@@ -56,7 +56,7 @@ class ConcatEnumerator: public IEnumerator<T>{
     ~ConcatEnumerator() override { delete first; delete second; };
 
     bool moveNext() override;
-    T& current() override;
+    T current() override;
     void reset() override;
 };
 
@@ -78,7 +78,7 @@ class IndexEnumerator: public IEnumerator<T>{
     ~IndexEnumerator() override { delete source; }
 
     bool moveNext() override;
-    T& current() override;
+    T current() override;
     void reset() override;
 };
 
@@ -98,7 +98,7 @@ class SkipEnumerator : public IEnumerator<T> {
     ~SkipEnumerator() override { delete source; };
 
     bool moveNext() override;
-    T& current() override;
+    T current() override;
     void reset() override;
 
 };

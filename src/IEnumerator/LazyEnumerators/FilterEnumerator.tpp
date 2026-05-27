@@ -19,7 +19,7 @@ bool FilterEnumerator<T>::moveNext(){
 }
 
 template<typename T>
-T& FilterEnumerator<T>::current(){
+T FilterEnumerator<T>::current(){
     if (!isValid) throw InvalidEnumerator();
     return currentValue;
 }

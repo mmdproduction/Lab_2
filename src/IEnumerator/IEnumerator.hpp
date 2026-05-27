@@ -29,7 +29,7 @@ public:
     SequenceEnumerator(const Sequence<T>* seq);
 
     bool moveNext() override;
-    T& current() override;
+    T current() override;
     void reset() override;
 
 };
