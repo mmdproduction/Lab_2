@@ -7,7 +7,7 @@ class IEnumerator{
     public:
     virtual ~IEnumerator() = default;
     virtual bool moveNext() = 0;
-    virtual T& current() = 0;
+    virtual T current() = 0;
     virtual void reset() = 0;
 };
 
