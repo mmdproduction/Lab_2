@@ -182,7 +182,7 @@ void LinkedList<T>::popAt(size_t index){
         Node* tpm = head;
         head = head->next;
         delete tpm;
-        size--
+        size--;
         return;
     }
 
