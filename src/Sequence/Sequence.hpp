@@ -41,6 +41,9 @@ class Sequence: public IEnumerable<T>{
     Iterator<T> begin();
     Iterator<T> end();
 
+    Iterator<T> begin() const;
+    Iterator<T> end() const;
+    
     IEnumerator<T>* getEnumerator() const override;
 
     bool isEmpty(){ return 0 == getLength(); }
