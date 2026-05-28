@@ -182,6 +182,7 @@ void LinkedList<T>::popAt(size_t index){
         Node* tpm = head;
         head = head->next;
         delete tpm;
+        size--
         return;
     }
 
@@ -200,12 +201,12 @@ LinkedList<T>* LinkedList<T>::concat(LinkedList<T>& list){
     LinkedList<T>* concatList = new LinkedList();
     Node* tpm = head;
     while(tpm != nullptr){
-        concatList.append(tpm->data);
+        concatList->append(tpm->data);
         tpm  = tpm->next;
     }
     tpm = list.head;
     while(tpm != nullptr){
-        concatList.append(tpm->data);
+        concatList->append(tpm->data);
         tpm  = tpm->next;
     }
     return concatList;
