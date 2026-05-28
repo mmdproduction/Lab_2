@@ -10,6 +10,7 @@ Iterator<T> Sequence<T>::end(){
     return Iterator<T>::endIterator();
 }
 
+template<typename T>
 Iterator<T> Sequence<T>::begin() const {
     auto enumPtr = getEnumerator();
     return Iterator<T>(enumPtr);
